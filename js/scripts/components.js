@@ -91,8 +91,43 @@
         }
     });
 
+    Crafty.c('Disaster', {
+        requiredItem: 'item',
+
+        init: function() {
+            this.requires('Solid, Color').attr({w: 16*3, h: 16*3}).collision([0,0],[0,this.h],[this.w,this.h],[this.w,0]).color('#000');
+
+            this.onHit('Player', this.allowFix, this.disallowFix);
+        },
+
+        allowFix: function() {
+            Crafty('Player').fixAllowed = true;
+            Crafty('Player').disaster = this;
+        },
+
+        disallowFix: function() {
+            Crafty('Player').fixAllowed = false;
+            Crafty('Player').disaster = null;
+        },
+
+        setProximity: function() {
+            this.collider = Crafty.e('Obstacle').atGrid(this.gridX+1, this.gridY+1);
+
+            return this;
+        },
+
+        requireItem: function(itemName) {
+            this.requiredItem = itemName
+        },
+
+        cleanup: function() {
+            this.collider.destroy();
+            this.destroy();
+        }
+    });
+
     Crafty.c('Item', {
-        itemName: 'item',
+        name: 'item',
 
         init: function() {
 
@@ -112,11 +147,17 @@
 
         setProximity: function() {
             this.collider = Crafty.e('Obstacle').atGrid(this.gridX+1, this.gridY+1);
+
+            return this;
         },
 
         pickup: function() {
             this.collider.destroy();
             this.destroy();
+        },
+
+        nameItem: function(name) {
+            this.name = name;
         }
     });
 
@@ -129,8 +170,19 @@
         checkKey: function() {
             if (this.isDown('SPACE')) {
                 if (this.itemPickup) {
-                    this.item = this.itemPickup.itemName;
+                    this.item = this.itemPickup.name;
                     this.itemPickup.pickup();
+                    this.itemPickup = null;
+                }
+
+                if (this.fixAllowed) {
+                    if (this.disaster.requiredItem = this.item) {
+                        this.disaster.cleanup();
+                        this.disaster = null;
+                        // Win round, get points;
+                    } else {
+                        // Wrong item, get different item for disaster;
+                    }
                 }
             }
         }

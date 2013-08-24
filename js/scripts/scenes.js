@@ -5,9 +5,9 @@
         Crafty.e('Obstacle').atGrid(6, 7);
         Crafty.e('Obstacle').atGrid(9, 9);
         Crafty.e('Obstacle').atGrid(2, 10);
-        Crafty.e('Obstacle').atGrid(8, 12);
+        Crafty.e('Disaster').atGrid(8, 12).setProximity().requireItem('Hammer');
 
-        Crafty.e('Item').atGrid(20, 20).setProximity();
+        Crafty.e('Item').atGrid(20, 20).setProximity().nameItem('Hammer');
 
         Crafty.e('Player').atGrid(5, 5);
 
