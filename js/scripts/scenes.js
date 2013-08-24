@@ -7,6 +7,8 @@
         Crafty.e('Obstacle').atGrid(2, 10);
         Crafty.e('Obstacle').atGrid(8, 12);
 
+        Crafty.e('Item').atGrid(20, 20).setProximity();
+
         Crafty.e('Player').atGrid(5, 5);
 
     }, function() {

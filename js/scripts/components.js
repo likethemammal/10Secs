@@ -9,6 +9,8 @@
         },
 
         atGrid: function(x, y) {
+            this.gridX = x;
+            this.gridY = y;
             if (x === undefined && y === undefined) {
                 return { x: this.x/Game.grid.tile.width, y: this.y/Game.grid.tile.height }
             } else {
@@ -59,17 +61,9 @@
         }
     });
 
-    Crafty.c('Obstacle',{
+    Crafty.c('Solid', {
         init: function() {
-            this.requires('Actor, Collision, InverseFourway, Color').inverseFourway(5).color('#F77FFF');
-
-            this.onHit('Player', this.stopAllObstacles);
-        },
-
-        stopAllObstacles: function() {
-            Crafty('Obstacle').each(function() {
-                this.stopMovement();
-            });
+            this.requires('Actor, Collision, InverseFourway').inverseFourway(5);
         },
 
         stopMovement: function() {
@@ -81,9 +75,64 @@
         }
     });
 
+    Crafty.c('Obstacle',{
+        init: function() {
+            this.requires('Solid, Color').color('#F77FFF');
+
+            this.onHit('Player', this.stopAllObstacles);
+        },
+
+        stopAllObstacles: function() {
+            Crafty.trigger('PlayerHit', this);
+
+            Crafty('Solid').each(function() {
+                this.stopMovement();
+            });
+        }
+    });
+
+    Crafty.c('Item', {
+        itemName: 'item',
+
+        init: function() {
+
+            this.requires('Solid, Color').attr({w: 16*3, h: 16*3}).collision([0,0],[0,this.h],[this.w,this.h],[this.w,0]).color('#f66134');
+
+            this.onHit('Player', this.allowPickup, this.disallowPickup);
+
+        },
+
+        allowPickup: function() {
+            Crafty('Player').itemPickup = this;
+        },
+
+        disallowPickup: function() {
+            Crafty('Player').itemPickup = null;
+        },
+
+        setProximity: function() {
+            this.collider = Crafty.e('Obstacle').atGrid(this.gridX+1, this.gridY+1);
+        },
+
+        pickup: function() {
+            this.collider.destroy();
+            this.destroy();
+        }
+    });
+
     Crafty.c('Player', {
         init:function() {
-            this.requires('Actor, Collision, spr_player');
+            this.requires('Actor, Collision, Keyboard, spr_player');
+            this.bind('KeyDown', this.checkKey);
+        },
+
+        checkKey: function() {
+            if (this.isDown('SPACE')) {
+                if (this.itemPickup) {
+                    this.item = this.itemPickup.itemName;
+                    this.itemPickup.pickup();
+                }
+            }
         }
     });
 
