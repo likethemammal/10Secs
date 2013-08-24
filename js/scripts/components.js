@@ -29,16 +29,62 @@
 
     });
 
+    Crafty.c("InverseFourway", {
+
+        init: function () {
+            this.requires("Multiway");
+        },
+
+        inverseFourway: function (speed) {
+            this.multiway(speed, {
+                UP_ARROW: 90,
+                DOWN_ARROW: -90,
+                RIGHT_ARROW: 180,
+                LEFT_ARROW: 0,
+                W: 90,
+                S: -90,
+                D: 180,
+                A: 0,
+                Z: 90,
+                Q: 0
+            });
+
+            return this;
+        }
+    });
+
     Crafty.c('Actor', {
         init: function() {
             this.requires('2D, Canvas, Grid')
         }
     });
 
+    Crafty.c('Obstacle',{
+        init: function() {
+            this.requires('Actor, Collision, InverseFourway, Color').inverseFourway(5).color('#F77FFF');
+
+            this.onHit('Player', this.stopAllObstacles);
+        },
+
+        stopAllObstacles: function() {
+            Crafty('Obstacle').each(function() {
+                this.stopMovement();
+            });
+        },
+
+        stopMovement: function() {
+            this._speed = 0;
+            if (this._movement) {
+                this.x -= this._movement.x;
+                this.y -= this._movement.y;
+            }
+        }
+    });
+
     Crafty.c('Player', {
         init:function() {
-            this.requires('Actor, Fourway, spr_player').fourway(5);
+            this.requires('Actor, Collision, spr_player');
         }
-    })
+    });
 
 })();
