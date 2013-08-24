@@ -19,7 +19,14 @@
             return this.grid.height * this.grid.tile.height;
         },
 
+        toGrid: function(pixel) {
+            return Math.round(pixel/16);
+        },
+
         start: function() {
+
+            this.origDisasters = $.extend(true, {}, this.disasters);
+
             Crafty.init(this.width(), this.height());
 
             Crafty.bind('SceneChange', function(changeInfo) {
@@ -34,9 +41,7 @@
         },
 
         reset: function() {
-            for (var key in this.disasters) {
-                this.disasters[key].completed = false;
-            }
+            this.disasters = $.extend(true, {}, this.origDisasters);
             this.victories = 0;
         },
 
@@ -44,7 +49,7 @@
             oil: {
                 name: 'oil',
                 gridX: 5,
-                gridY: 7,
+                gridY: 9,
                 sprite: '',
                 itemName: 'Hammer',
                 itemX: 0,
@@ -63,6 +68,8 @@
                 completed: false
             }
         },
+
+        origDisasters: {},
 
         victories: 0
     };

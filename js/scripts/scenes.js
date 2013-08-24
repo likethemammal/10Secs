@@ -57,7 +57,7 @@
             .css(text_css);
 
 
-        var gameUI = new App.GameUI();
+//        var gameUI = new App.GameUI();
 
         timer.start();
 

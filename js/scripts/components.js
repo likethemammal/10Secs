@@ -102,12 +102,16 @@
         allowFix: function() {
             Crafty('Player').fixAllowed = true;
             Crafty('Player').disaster = this;
+            if (Crafty('Player').item) {
+                App.trigger('disaster:allowFix', this.item);
+            }
         },
 
         disallowFix: function() {
             Crafty('Player').fixAllowed = false;
             Crafty('Player').disaster = null;
             App.trigger('message:delete');
+            App.trigger('disaster:disallowFix', this.item);
         },
 
         setProximity: function() {
@@ -140,11 +144,13 @@
 
         allowPickup: function() {
             Crafty('Player').itemPickup = this;
+            App.trigger('item:allowPickup', this.item);
         },
 
         disallowPickup: function() {
             Crafty('Player').itemPickup = null;
             App.trigger('message:delete');
+            App.trigger('item:disallowPickup', this.item);
         },
 
         setProximity: function() {
@@ -171,18 +177,20 @@
 
         checkKey: function() {
             if (this.isDown('SPACE')) {
+
                 if (this.itemPickup) {
                     if (!this.item) {
                         this.item = this.itemPickup.name;
                         this.itemPickup.pickup();
                         this.itemPickup = null;
+
+                        App.trigger('item:pickup', this.item);
+
                     } else {
                         App.trigger('message:create', 'Not allowed to hold more than one item, drop one first.');
                         //ERROR: Not allowed to hold more than one item, drop one first.
                     }
-                }
-
-                if (this.fixAllowed) {
+                } else if (this.fixAllowed) {
                     if (this.disaster.requiredItem === this.item) {
                         var disasterName = this.disaster.name;
 
@@ -202,6 +210,26 @@
 
                         //ERROR: Wrong item, get different item for disaster;
                     }
+                } else if (this.item){
+                    App.trigger('item:drop', this.item);
+
+                    var disasters = 0;
+
+                    for (var key in Game.disasters) {
+                        var disaster = Game.disasters[key];
+
+                        if (disaster.itemName === this.item) {
+                            Game.disasters[key].itemX = Game.toGrid(this.x);
+                            Game.disasters[key].itemY = Game.toGrid(this.y);
+                            Crafty('Player').destroy();
+                            Crafty.e('Item').atGrid(Game.toGrid(this.x), Game.toGrid(this.y)).setProximity().nameItem(disaster.itemName);
+                            Crafty.e('Player').atGrid(Game.toGrid(this.x), Game.toGrid(this.x));
+                        }
+
+                        disasters++;
+                    }
+
+                    this.item = null;
                 }
             }
         }

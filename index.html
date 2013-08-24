@@ -16,9 +16,9 @@
         <script type="text/template" id="game-ui-template">
 
             <div class="game-ui">
-                <div class="rounds ui">Round: <%= Game.victories %>/10</div>
+                <div class="rounds ui">Round: <%= Game.victories %>/2</div>
                 <div class="timer ui"></div>
-                <div class="item ui"></div>
+                <div class="item ui"><img src=""></div>
             </div>
 
         </script>
@@ -78,6 +78,7 @@
                 position: absolute;
                 width: 20px;
                 height: 20px;
+                top: 30px;
                 background: rgb(64, 14, 18);
                 z-index: 2;
             }

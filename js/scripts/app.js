@@ -47,6 +47,8 @@
             App.on('sceneChange:GameLoop', _.bind(this.removeUI, this));
             App.on('message:create', _.bind(this.renderMessage, this));
             App.on('message:delete', _.bind(this.deleteMessage, this));
+            App.on('item:pickup', _.bind(this.setItemUI, this));
+            App.on('item:drop', _.bind(this.unsetItemUI, this));
             this.render();
         },
 
@@ -57,8 +59,10 @@
 
         removeUI: function() {
             App.off('sceneChange:GameLoop', _.bind(this.removeUI, this));
-            App.on('message:create', _.bind(this.renderMessage, this));
-            App.on('message:delete', _.bind(this.deleteMessage, this));
+            App.off('message:create', _.bind(this.renderMessage, this));
+            App.off('message:delete', _.bind(this.deleteMessage, this));
+            App.off('item:pickup', _.bind(this.setItemUI, this));
+            App.off('item:drop', _.bind(this.unsetItemUI, this));
             this.$el.children().remove();
         },
 
@@ -73,6 +77,14 @@
 
         deleteMessage: function() {
             $('.message').remove();
+        },
+
+        setItemUI: function(item) {
+            $('.item').children().attr('src', '/assets/items/' + item + '/.png');
+        },
+
+        unsetItemUI: function(item, x, y) {
+            $('.item').children().attr('src', '');
         }
 
     });
