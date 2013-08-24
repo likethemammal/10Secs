@@ -92,7 +92,6 @@
     });
 
     Crafty.c('Disaster', {
-        requiredItem: 'item',
 
         init: function() {
             this.requires('Solid, Color').attr({w: 16*3, h: 16*3}).collision([0,0],[0,this.h],[this.w,this.h],[this.w,0]).color('#000');
@@ -116,8 +115,9 @@
             return this;
         },
 
-        requireItem: function(itemName) {
-            this.requiredItem = itemName
+        setNames: function(disasterName, itemName) {
+            this.name = disasterName;
+            this.requiredItem = itemName;
         },
 
         cleanup: function() {
@@ -170,18 +170,29 @@
         checkKey: function() {
             if (this.isDown('SPACE')) {
                 if (this.itemPickup) {
-                    this.item = this.itemPickup.name;
-                    this.itemPickup.pickup();
-                    this.itemPickup = null;
+                    if (!this.item) {
+                        this.item = this.itemPickup.name;
+                        this.itemPickup.pickup();
+                        this.itemPickup = null;
+                    } else {
+                        //ERROR: Not allowed to get more than one item, drop one first.
+                    }
                 }
 
                 if (this.fixAllowed) {
-                    if (this.disaster.requiredItem = this.item) {
+                    if (this.disaster.requiredItem === this.item) {
+                        var disasterName = this.disaster.name;
+
+                        this.item = null;
+
                         this.disaster.cleanup();
                         this.disaster = null;
                         // Win round, get points;
+
+                        Crafty.trigger('WinRound', disasterName);
+
                     } else {
-                        // Wrong item, get different item for disaster;
+                        //ERROR: Wrong item, get different item for disaster;
                     }
                 }
             }

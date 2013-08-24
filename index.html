@@ -3,12 +3,23 @@
 
     <head>
 
+        <script type="text/template" id="start-template">
+
+            <div class="start-menu">
+                <div class="start-btn btn"></div>
+            </div>
+
+        </script>
+
+        <script src="js/lib/Timer.js"></script>
+
         <script src="js/lib/crafty-0.5.4.js"></script>
         <script src="js/lib/underscore.js"></script>
-        <script src="js/lib/backbone.js"></script>
         <script src="js/lib/jquery-1.10.2.js"></script>
+        <script src="js/lib/backbone.js"></script>
 
         <script src="js/scripts/app.js"></script>
+        <script src="js/scripts/game.js"></script>
         <script src="js/scripts/components.js"></script>
         <script src="js/scripts/scenes.js"></script>
 
@@ -37,11 +48,20 @@
                 color: #AAA;
             }
 
+            .btn {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                z-index: 2;
+                background: #aac;
+            }
+
         </style>
 
     </head>
 
     <body>
+
 
         <h2>10 Seconds to Survive</h2>
 
@@ -49,7 +69,11 @@
 
         <p class="controls">Controls: Use W, A, S, and D or arrow keys to move around.</p>
 
-        <div id="cr-stage"></div>
+        <div id="cr-stage">
+
+            <div class="menu-container"></div>
+
+        </div>
 
         <p class="bottom">Created for Ludum Dare 27</p>
 

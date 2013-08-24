@@ -1,35 +1,36 @@
-(function() {
+(function(){
 
-    Game = {
+    App = {};
 
-        grid: {
-            width:  25,
-            height: 15,
-            tile: {
-                width:  16,
-                height: 16
-            }
+    App.StartMenu = Backbone.View.extend({
+
+        el: '.menu-container',
+
+        template: _.template($("#start-template").html()),
+
+        events: {
+            'click .start-btn': 'startGame'
         },
 
-        width: function() {
-            return this.grid.width * this.grid.tile.width;
+        initialize: function() {
+            this.render();
         },
 
-        height: function() {
-            return this.grid.height * this.grid.tile.height;
+        render: function () {
+            this.$el.html(this.template);
+            Crafty.e('2D, DOM')
+                .DOM('.start-btn')
+                .attr({ x: Game.height()/2, y: Game.height()/2 - 24});
+            return this;
         },
 
-        start: function() {
+        startGame: function() {
+            Crafty.scene('GameLoop');
 
-            Crafty.init(this.width(), this.height());
-
-            Crafty.background('#F77F00');
-
-            Crafty.scene('Loading');
-
+            this.$el.children().remove();
         }
-    };
+    });
 
-    window.addEventListener('load', _.bind(Game.start, Game));
+    _.extend(App, Backbone.Events);
 
 })();
