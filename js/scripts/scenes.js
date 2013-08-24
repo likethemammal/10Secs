@@ -16,7 +16,7 @@
                 timer.stop();
                 delete timer;
 
-                Crafty.scene('GameOver');
+//                Crafty.scene('GameOver');
             }
         });
 
@@ -56,8 +56,10 @@
             .attr({ x: 0, y: 0, w: Game.width() })
             .css(text_css);
 
-        timer.start();
 
+        var gameUI = new App.GameUI();
+
+        timer.start();
 
         this.bind('WinRound', _.bind(function(disaster) {
             Game.disasters[disaster].completed = true;
@@ -65,6 +67,7 @@
 
             timer.stop();
             delete timer;
+            delete gameUI;
 
             Crafty.scene('Victory');
         }, this));
@@ -119,6 +122,7 @@
             if (!delay) {
                 if (gameCompleted) {
                     Game.reset();
+                    this.unbind('KeyDown');
                     Crafty.scene('StartMenu');
                 } else {
                     Crafty.scene('GameLoop');

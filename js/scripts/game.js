@@ -22,6 +22,12 @@
         start: function() {
             Crafty.init(this.width(), this.height());
 
+            Crafty.bind('SceneChange', function(changeInfo) {
+                if (changeInfo.oldScene !== changeInfo.newScene) {
+                    App.trigger('sceneChange:' + changeInfo.oldScene);
+                }
+            });
+
             Crafty.background('#F77F00');
 
             Crafty.scene('Loading');

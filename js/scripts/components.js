@@ -107,6 +107,7 @@
         disallowFix: function() {
             Crafty('Player').fixAllowed = false;
             Crafty('Player').disaster = null;
+            App.trigger('message:delete');
         },
 
         setProximity: function() {
@@ -143,6 +144,7 @@
 
         disallowPickup: function() {
             Crafty('Player').itemPickup = null;
+            App.trigger('message:delete');
         },
 
         setProximity: function() {
@@ -175,7 +177,8 @@
                         this.itemPickup.pickup();
                         this.itemPickup = null;
                     } else {
-                        //ERROR: Not allowed to get more than one item, drop one first.
+                        App.trigger('message:create', 'Not allowed to hold more than one item, drop one first.');
+                        //ERROR: Not allowed to hold more than one item, drop one first.
                     }
                 }
 
@@ -189,9 +192,14 @@
                         this.disaster = null;
                         // Win round, get points;
 
+                        this.unbind('KeyDown', this.checkKey);
+
                         Crafty.trigger('WinRound', disasterName);
 
                     } else {
+
+                        App.trigger('message:create', 'Wrong item, this disaster requires a different solution.');
+
                         //ERROR: Wrong item, get different item for disaster;
                     }
                 }

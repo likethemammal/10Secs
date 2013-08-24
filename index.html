@@ -7,7 +7,25 @@
 
             <div class="start-menu">
                 <div class="start-btn btn"></div>
+                <div class="how-to-btn btn"></div>
+                <a class="website-btn btn" href="http://www.likethemammal.com/"></a>
             </div>
+
+        </script>
+
+        <script type="text/template" id="game-ui-template">
+
+            <div class="game-ui">
+                <div class="rounds ui">Round: <%= Game.victories %>/10</div>
+                <div class="timer ui"></div>
+                <div class="item ui"></div>
+            </div>
+
+        </script>
+
+        <script type="text/template" id="message-template">
+
+            <div class="message ui"><%= message %></div>
 
         </script>
 
@@ -52,8 +70,31 @@
                 position: absolute;
                 width: 50px;
                 height: 50px;
-                z-index: 2;
                 background: #aac;
+                z-index: 2;
+            }
+
+            .ui {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                background: rgb(64, 14, 18);
+                z-index: 2;
+            }
+
+            .message {
+                top: 50px;
+                left: 50px;
+            }
+
+            .website-btn {
+                top: 50px;
+                right: 60px;
+            }
+            
+            .how-to-btn {
+                bottom: 0;
+                left: 20px;
             }
 
         </style>
@@ -72,6 +113,7 @@
         <div id="cr-stage">
 
             <div class="menu-container"></div>
+            <div class="ui-container"></div>
 
         </div>
 
