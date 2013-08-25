@@ -94,7 +94,8 @@
     Crafty.c('Disaster', {
 
         init: function() {
-            this.requires('Solid, Color').attr({w: 16*3, h: 16*3}).collision([0,0],[0,this.h],[this.w,this.h],[this.w,0]).color('#000');
+            var size = Game.grid.tile.width;
+            this.requires('Solid, Color').attr({w: size*3, h: size*3}).collision([0,0],[0,this.h],[this.w,this.h],[this.w,0]).color('#000');
 
             this.onHit('Player', this.allowFix, this.disallowFix);
         },
@@ -135,8 +136,8 @@
         name: 'item',
 
         init: function() {
-
-            this.requires('Solid, Color').attr({w: 16*3, h: 16*3}).collision([0,0],[0,this.h],[this.w,this.h],[this.w,0]).color('#f66134');
+            var size = Game.grid.tile.width;
+            this.requires('Solid, Color').attr({w: size*3, h: size*3}).collision([0,0],[0,this.h],[this.w,this.h],[this.w,0]).color('#f66134');
 
             this.onHit('Player', this.allowPickup, this.disallowPickup);
 
@@ -160,6 +161,7 @@
         },
 
         pickup: function() {
+            App.trigger('item:disallowPickup', this.item);
             this.collider.destroy();
             this.destroy();
         },
@@ -171,7 +173,7 @@
 
     Crafty.c('Player', {
         init:function() {
-            this.requires('Actor, Collision, Keyboard, spr_player');
+            this.requires('Actor, Collision, Keyboard, Color').color('#440');
             this.bind('KeyDown', this.checkKey);
         },
 
@@ -204,7 +206,7 @@
 
                         Crafty.trigger('WinRound', disasterName);
 
-                    } else {
+                    } else if (this.item) {
 
                         App.trigger('message:create', 'Wrong item, this disaster requires a different solution.');
 
@@ -214,6 +216,8 @@
                     App.trigger('item:drop', this.item);
 
                     var disasters = 0;
+                    var x = this.x;
+                    var y = this.y;
 
                     for (var key in Game.disasters) {
                         var disaster = Game.disasters[key];
@@ -222,8 +226,8 @@
                             Game.disasters[key].itemX = Game.toGrid(this.x);
                             Game.disasters[key].itemY = Game.toGrid(this.y);
                             Crafty('Player').destroy();
-                            Crafty.e('Item').atGrid(Game.toGrid(this.x), Game.toGrid(this.y)).setProximity().nameItem(disaster.itemName);
-                            Crafty.e('Player').atGrid(Game.toGrid(this.x), Game.toGrid(this.x));
+                            Crafty.e('Item').atGrid(Game.toGrid(x) - 1, Game.toGrid(y)).setProximity().nameItem(disaster.itemName);
+                            Crafty.e('Player').atGrid(Game.toGrid(x), Game.toGrid(y));
                         }
 
                         disasters++;

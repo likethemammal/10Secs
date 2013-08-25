@@ -3,18 +3,17 @@
     Crafty.scene('GameLoop', function() {
 
         var timeElapsed = 0;
-        var timer = new Timer(1000);
 
-        timer.every('1 second', function() {
+        App.timer.bind('1 second', function() {
             timeElapsed++;
 
-            Crafty('Timer').text("Timer: " + (10 - timeElapsed));
+            $('.timer').children().text("Timer: " + (10 - timeElapsed));
 
             if (timeElapsed > 10) {
                 timeElapsed = 0;
 
-                timer.stop();
-                delete timer;
+                App.timer.stop();
+                App.timer.unbind('1 second');
 
 //                Crafty.scene('GameOver');
             }
@@ -44,29 +43,29 @@
         Crafty.e('Obstacle').atGrid(9, 9);
         Crafty.e('Obstacle').atGrid(2, 10);
 
-        Crafty.e('Player').atGrid(5, 5);
+        Crafty.e('Player').atGrid(Game.toGrid(Game.width()/2), Game.toGrid(Game.height()/2));
 
-        Crafty.e('Timer, 2D, DOM, Text')
-            .text("Timer: " + (10 - timeElapsed))
-            .attr({ x: 60, y: 0, w: Game.width() })
-            .css(text_css);
+//        Crafty.e('Timer, 2D, DOM, Text')
+//            .text("Timer: " + (10 - timeElapsed))
+//            .attr({ x: 60, y: 0, w: Game.width() })
+//            .css(text_css);
+//
+//        Crafty.e('2D, DOM, Text')
+//            .text("Round: " + Game.victories + '/' + disasters)
+//            .attr({ x: 0, y: 0, w: Game.width() })
+//            .css(text_css);
 
-        Crafty.e('2D, DOM, Text')
-            .text("Round: " + Game.victories + '/' + disasters)
-            .attr({ x: 0, y: 0, w: Game.width() })
-            .css(text_css);
 
+        var gameUI = new App.GameUI();
 
-//        var gameUI = new App.GameUI();
-
-        timer.start();
+        App.timer.start();
 
         this.bind('WinRound', _.bind(function(disaster) {
             Game.disasters[disaster].completed = true;
             Game.victories++;
 
-            timer.stop();
-            delete timer;
+            App.timer.stop();
+            App.timer.unbind('1 second');
             delete gameUI;
 
             Crafty.scene('Victory');
@@ -172,7 +171,7 @@
             'assets/player.png'
         ], function(){
 
-            Crafty.sprite(16, 'assets/player.png', {
+            Crafty.sprite(32, 'assets/player.png', {
                 spr_player:    [0, 0]
             });
 

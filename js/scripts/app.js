@@ -2,6 +2,8 @@
 
     App = {};
 
+    App.timer = new Timer(1000);
+
     App.StartMenu = Backbone.View.extend({
 
         el: '.menu-container',
@@ -47,8 +49,14 @@
             App.on('sceneChange:GameLoop', _.bind(this.removeUI, this));
             App.on('message:create', _.bind(this.renderMessage, this));
             App.on('message:delete', _.bind(this.deleteMessage, this));
+            App.on('item:allowPickup', _.bind(this.allowPickup, this));
+            App.on('item:disallowPickup', _.bind(this.disallowPickup, this));
             App.on('item:pickup', _.bind(this.setItemUI, this));
             App.on('item:drop', _.bind(this.unsetItemUI, this));
+
+            App.on('disaster:allowFix', _.bind(this.allowFix, this));
+            App.on('disaster:disallowFix', _.bind(this.disallowFix, this));
+
             this.render();
         },
 
@@ -61,8 +69,14 @@
             App.off('sceneChange:GameLoop', _.bind(this.removeUI, this));
             App.off('message:create', _.bind(this.renderMessage, this));
             App.off('message:delete', _.bind(this.deleteMessage, this));
+            App.off('item:allowPickup', _.bind(this.allowPickup, this));
+            App.off('item:disallowPickup', _.bind(this.disallowPickup, this));
             App.off('item:pickup', _.bind(this.setItemUI, this));
             App.off('item:drop', _.bind(this.unsetItemUI, this));
+
+            App.off('disaster:allowFix', _.bind(this.allowFix, this));
+            App.off('disaster:disallowFix', _.bind(this.disallowFix, this));
+
             this.$el.children().remove();
         },
 
@@ -80,11 +94,27 @@
         },
 
         setItemUI: function(item) {
-            $('.item').children().attr('src', '/assets/items/' + item + '/.png');
+            $('.current-item').children().show().attr('src', '/assets/items/' + item + '/.png');
         },
 
         unsetItemUI: function(item, x, y) {
-            $('.item').children().attr('src', '');
+            $('.current-item').children().hide();
+        },
+
+        allowPickup: function() {
+            $('.indicator').show();
+        },
+
+        disallowPickup: function() {
+            $('.indicator').hide();
+        },
+
+        allowFix: function() {
+            $('.indicator').show();
+        },
+
+        disallowFix: function() {
+            $('.indicator').hide();
         }
 
     });

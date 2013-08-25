@@ -6,8 +6,8 @@
             width:  25,
             height: 15,
             tile: {
-                width:  16,
-                height: 16
+                width:  32,
+                height: 32
             }
         },
 
@@ -20,7 +20,7 @@
         },
 
         toGrid: function(pixel) {
-            return Math.round(pixel/16);
+            return Math.floor(pixel/this.grid.tile.width);
         },
 
         start: function() {

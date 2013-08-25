@@ -6,8 +6,8 @@
         <script type="text/template" id="start-template">
 
             <div class="start-menu">
-                <div class="start-btn btn"></div>
-                <div class="how-to-btn btn"></div>
+                <div class="start-btn btn"><h3>Start</h3></div>
+                <div class="how-to-btn btn"><h3>How-to</h3></div>
                 <a class="website-btn btn" href="http://www.likethemammal.com/"></a>
             </div>
 
@@ -16,9 +16,10 @@
         <script type="text/template" id="game-ui-template">
 
             <div class="game-ui">
-                <div class="rounds ui">Round: <%= Game.victories %>/2</div>
-                <div class="timer ui"></div>
-                <div class="item ui"><img src=""></div>
+                <div class="rounds ui"><h3>Round: <%= Game.victories %>/2</h3></div>
+                <div class="timer ui"><h3>Timer: 10</h3></div>
+                <div class="current-item ui"><img src=""></div>
+                <div class="indicator ui"><img src=""></div>
             </div>
 
         </script>
@@ -72,20 +73,54 @@
                 height: 50px;
                 background: #aac;
                 z-index: 2;
+                cursor: pointer;
             }
 
             .ui {
                 position: absolute;
                 width: 20px;
                 height: 20px;
-                top: 30px;
                 background: rgb(64, 14, 18);
                 z-index: 2;
             }
 
+            .current-item {
+                top: 10px;
+                right: 10px;
+                width: 64px;
+                height: 64px;
+            }
+
             .message {
-                top: 50px;
-                left: 50px;
+                bottom: 0;
+                width: 100%;
+                height: auto;
+                z-index: 3;
+                margin: 0 auto;
+            }
+
+            .indicator {
+                display: none;
+                top: 30%;
+                left: 50%;
+                width: 64px;
+                height: 64px;
+            }
+
+            .rounds {
+                top: 10px;
+                left: 120px;
+                background: #aac;
+                width: auto;
+                height: auto;
+            }
+
+            .timer {
+                top: 10px;
+                left: 10px;
+                background: #2dcc28;
+                width: auto;
+                height: auto;
             }
 
             .website-btn {
@@ -93,9 +128,25 @@
                 right: 60px;
             }
             
+            .start-btn {
+                top: 50%;
+                left: 50%;
+                width: auto;
+                height: auto;
+                background: #aac;
+                z-index: 2;
+            }
+
             .how-to-btn {
-                bottom: 0;
-                left: 20px;
+                top: 70%;
+                left: 50%;
+                width: auto;
+                height: auto;
+            }
+
+            h3 {
+                margin: 0;
+                padding: 5px;
             }
 
         </style>
