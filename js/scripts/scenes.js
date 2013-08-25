@@ -2,6 +2,11 @@
 
     Crafty.scene('GameLoop', function() {
 
+        Crafty.e('Background').atGrid(Game.toGrid(Game.map.locationX), Game.toGrid(Game.map.locationY));
+//        Crafty.e('Background').atGrid(0, 0);
+
+        renderWalls();
+
         var timeElapsed = 0;
 
         App.timer.bind('1 second', function() {
@@ -185,5 +190,22 @@
         var startMenu = new App.StartMenu();
 
     });
+
+    function renderWalls() {
+
+        function createWall(x, y, w, h) {
+            Crafty.e('Obstacle')
+                .attr({w: w, h: h})
+                .atGrid(x, y)
+                .collision([0,0], [w,0], [w,h], [0,h]);
+        }
+
+        // Box off original game area.
+        createWall(Game.toGrid(Game.map.locationX), Game.toGrid(Game.map.locationY), Game.map.width, Game.grid.tile.height);
+        createWall(Game.toGrid(Game.map.locationX), Game.toGrid(Game.map.height - 7.25*Game.grid.tile.width), Game.map.width, Game.grid.tile.height);
+
+        createWall(Game.toGrid(Game.map.locationX), Game.toGrid(Game.map.locationY), Game.grid.tile.width, Game.map.height);
+        createWall(Game.toGrid(Game.map.width - 14*Game.grid.tile.width), Game.toGrid(Game.map.locationY), Game.grid.tile.width, Game.map.height);
+    }
 
 })();

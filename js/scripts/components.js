@@ -61,6 +61,12 @@
         }
     });
 
+    Crafty.c('Background', {
+        init: function() {
+            this.requires('Solid, Image').attr({w: Game.map.width, h: Game.map.height}).image('assets/background.png', "repeat");
+        }
+    });
+
     Crafty.c('Solid', {
         init: function() {
             this.requires('Actor, Collision, InverseFourway').inverseFourway(5);

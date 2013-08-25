@@ -6,9 +6,15 @@
             width:  25,
             height: 15,
             tile: {
-                width:  32,
-                height: 32
+                width:  16,
+                height: 16
             }
+        },
+
+        map: {
+            width: 0,
+            height: 0,
+            multiplier: 2
         },
 
         width: function() {
@@ -27,6 +33,12 @@
 
             this.origDisasters = $.extend(true, {}, this.disasters);
 
+            this.map.width = this.width()*this.map.multiplier;
+            this.map.height = this.height()*this.map.multiplier;
+
+            this.map.locationX = this.width()/this.map.multiplier*-1;
+            this.map.locationY = this.height()/this.map.multiplier*-1;
+
             Crafty.init(this.width(), this.height());
 
             Crafty.bind('SceneChange', function(changeInfo) {
@@ -35,7 +47,7 @@
                 }
             });
 
-            Crafty.background('#F77F00');
+            Crafty.background('#555');
 
             Crafty.scene('Loading');
         },
@@ -60,11 +72,22 @@
             fire: {
                 name: 'fire',
                 gridX: 15,
-                gridY: 23,
+                gridY: 17,
                 sprite: '',
                 itemName: 'Water',
                 itemX: 4,
                 itemY: 15,
+                completed: false
+            },
+
+            homework: {
+                name: 'homework',
+                gridX: 25,
+                gridY: -5,
+                sprite: '',
+                itemName: 'Dog',
+                itemX: -5,
+                itemY: 14,
                 completed: false
             }
         },
