@@ -6,8 +6,8 @@
             width:  25,
             height: 15,
             tile: {
-                width:  16,
-                height: 16
+                width:  32,
+                height: 32
             }
         },
 
@@ -58,23 +58,13 @@
         },
 
         disasters: {
-            oil: {
-                name: 'oil',
-                gridX: 5,
-                gridY: 9,
-                sprite: '',
-                itemName: 'Hammer',
-                itemX: 0,
-                itemY: 5,
-                completed: false
-            },
 
             fire: {
                 name: 'fire',
                 gridX: 15,
                 gridY: 17,
                 sprite: '',
-                itemName: 'Water',
+                itemName: 'Extinguisher',
                 itemX: 4,
                 itemY: 15,
                 completed: false

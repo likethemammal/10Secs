@@ -3,12 +3,15 @@
 
     <head>
 
+        <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
+
         <script type="text/template" id="start-template">
 
             <div class="start-menu">
                 <div class="start-btn btn"><h3>Start</h3></div>
                 <div class="how-to-btn btn"><h3>How-to</h3></div>
-                <a class="website-btn btn" href="http://www.likethemammal.com/"></a>
+                <a class="website-btn btn" href="http://www.likethemammal.com/">WWW</a>
             </div>
 
         </script>
@@ -26,7 +29,34 @@
 
         <script type="text/template" id="message-template">
 
-            <div class="message ui"><%= message %></div>
+            <div class="message ui"><h3><%= message %></h3></div>
+
+        </script>
+
+        <script type="text/template" id="victory-template">
+
+            <div class="victory-menu">
+                <div class="text-block"><p><%= text %></p></div>
+            </div>
+        </script>
+
+        <script type="text/template" id="round-template">
+
+            <div class="round-menu">
+                <div class="text-block"><p><%= text %></p></div>
+                <div class="item-menu"><div class="item"><h3><%= item %></h3></div></div>
+                <div class="disaster-menu"><div class="disaster"><h3><%= disaster %></h3></div></div>
+            </div>
+
+        </script>
+
+        <script type="text/template" id="game-over-template">
+
+            <div class="game-over-menu">
+                <div class="round-completed"><div class="rounds-menu"><h3><%= rounds %></h3></div></div>
+                <div class="text-block"><p><%= text %></p></div>
+                <a class="website-btn btn" href="http://www.likethemammal.com/">WWW</a>
+            </div>
 
         </script>
 
@@ -89,64 +119,82 @@
                 right: 10px;
                 width: 64px;
                 height: 64px;
+                background: url('assets/current-item-ui.png') no-repeat center;
+            }
+            .current-item img{
+                padding-top: 14px;
+                padding-left: 4px;
             }
 
             .message {
-                bottom: 0;
+                bottom: 15px;
                 width: 100%;
-                height: auto;
+                height: 188px;
                 z-index: 3;
                 margin: 0 auto;
+                background: url('assets/message.png') no-repeat center;
+            }
+            .message h3 {
+                margin: 30px 0 0 117px;
+                text-align: left;
+                width: 555px;
             }
 
             .indicator {
                 display: none;
                 top: 30%;
                 left: 50%;
+                background: url('assets/tooltip-ui.png') no-repeat center;
                 width: 64px;
-                height: 64px;
+                height: 70px;
             }
 
             .rounds {
                 top: 10px;
-                left: 120px;
-                background: #aac;
-                width: auto;
-                height: auto;
+                left: 230px;
+                background: url('assets/timer-ui.png') no-repeat center;
+                width: 210px;
+                height: 64px;
             }
 
             .timer {
                 top: 10px;
                 left: 10px;
-                background: #2dcc28;
-                width: auto;
-                height: auto;
+                background: url('assets/timer-ui.png') no-repeat center;
+                width: 210px;
+                height: 64px;
             }
 
             .website-btn {
-                top: 50px;
-                right: 60px;
+                bottom: 10px;
+                right: 10px;
+                background: url('assets/website-btn.png') no-repeat center;
+                width: 150px;
+                height: 64px;
+                text-decoration: none;
             }
             
             .start-btn {
                 top: 50%;
-                left: 50%;
-                width: auto;
-                height: auto;
-                background: #aac;
+                background: url('assets/timer-ui.png') no-repeat center;
+                width: 100%;
+                height: 64px;
                 z-index: 2;
             }
 
             .how-to-btn {
                 top: 70%;
-                left: 50%;
-                width: auto;
-                height: auto;
+                background: url('assets/timer-ui.png') no-repeat center;
+                width: 100%;
+                height: 64px;
             }
 
-            h3 {
+            h3, a {
+                font-family: 'Press Start 2P', cursive;
                 margin: 0;
                 padding: 5px;
+                color: #fff;
+                line-height: 2em;
             }
 
         </style>

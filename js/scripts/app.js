@@ -39,6 +39,72 @@
         }
     });
 
+    App.VictoryMenu = Backbone.View.extend({
+
+        el: '.menu-container',
+
+        template: _.template($("#victory-template").html()),
+
+        initialize: function() {
+            App.on('sceneChange:VictoryMenu', _.bind(this.removeUI, this));
+            this.render();
+        },
+
+        render: function () {
+            this.$el.html(this.template({text: "You've fixed all disasters and saved the world!"}));
+            return this;
+        },
+
+        removeUI: function() {
+            App.off('sceneChange:VictoryMenu', _.bind(this.removeUI, this));
+            this.$el.children().remove();
+        }
+    });
+
+    App.RoundMenu = Backbone.View.extend({
+
+        el: '.menu-container',
+
+        template: _.template($("#round-template").html()),
+
+        initialize: function() {
+            App.on('sceneChange:RoundMenu', _.bind(this.removeUI, this));
+            this.render();
+        },
+
+        render: function () {
+            this.$el.html(this.template({text: "You've fixed a disaster! Get ready for the next one.", item: Game.disasters[Game.lastFinished].itemName, disaster: Game.lastFinished}));
+            return this;
+        },
+
+        removeUI: function() {
+            App.off('sceneChange:RoundMenu', _.bind(this.removeUI, this));
+            this.$el.children().remove();
+        }
+    });
+
+    App.GameOverMenu = Backbone.View.extend({
+
+        el: '.menu-container',
+
+        template: _.template($("#game-over-template").html()),
+
+        initialize: function() {
+            App.on('sceneChange:GameOverMenu', _.bind(this.removeUI, this));
+            this.render();
+        },
+
+        render: function () {
+            this.$el.html(this.template({rounds: Game.victories, text: 'You should be faster at this. Try better next time.', }));
+            return this;
+        },
+
+        removeUI: function() {
+            App.off('sceneChange:GameOverMenu', _.bind(this.removeUI, this));
+            this.$el.children().remove();
+        }
+    });
+
     App.GameUI = Backbone.View.extend({
 
         el: '.ui-container',
@@ -94,7 +160,7 @@
         },
 
         setItemUI: function(item) {
-            $('.current-item').children().show().attr('src', '/assets/items/' + item + '/.png');
+            $('.current-item').children().show().attr('src', 'assets/items/' + item.toLowerCase() + '.png');
         },
 
         unsetItemUI: function(item, x, y) {
@@ -126,7 +192,7 @@
 
         render: function () {
             if ($('.message').length) {
-                $('.message').text(this.text);
+                $('.message').children().text(this.text);
                 return this;
             } else {
                 this.$el.prepend(this.template({message: this.text}));

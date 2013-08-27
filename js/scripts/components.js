@@ -63,13 +63,41 @@
 
     Crafty.c('Background', {
         init: function() {
-            this.requires('Solid, Image').attr({w: Game.map.width, h: Game.map.height}).image('assets/background.png', "repeat");
+            this.requires('Solid, Image').attr({w: Game.map.width, h: Game.map.height}).image('assets/background-tile.png', "repeat");
+        }
+    });
+
+    Crafty.c('GrassBackground', {
+        init: function() {
+            this.requires('Solid, Image').attr({w: Game.map.width*2, h: Game.map.height*2}).image('assets/background-grass.png', "repeat");
+        }
+    });
+
+    Crafty.c('AnimationObject', {
+        init: function() {
+            this.requires('Solid');
+
+            var animation_speed = 8;
+            this.bind('NewDirection', function(data) {
+                Crafty('Player').stop();
+                if (data.x < 0) {
+                    Crafty('Player').animate('PlayerMovingRight', animation_speed, -1);
+                } else if (data.x > 0) {
+                    Crafty('Player').animate('PlayerMovingLeft', animation_speed, -1);
+                } else if (data.y < 0) {
+                    Crafty('Player').animate('PlayerMovingDown', animation_speed, -1);
+                } else if (data.y > 0) {
+                    Crafty('Player').animate('PlayerMovingUp', animation_speed, -1);
+                } else {
+                    Crafty('Player').stop();
+                }
+            });
         }
     });
 
     Crafty.c('Solid', {
         init: function() {
-            this.requires('Actor, Collision, InverseFourway').inverseFourway(5);
+            this.requires('Actor, Collision, InverseFourway').inverseFourway(3);
         },
 
         stopMovement: function() {
@@ -83,7 +111,7 @@
 
     Crafty.c('Obstacle',{
         init: function() {
-            this.requires('Solid, Color').color('#F77FFF');
+            this.requires('Solid');
 
             this.onHit('Player', this.stopAllObstacles);
         },
@@ -101,7 +129,7 @@
 
         init: function() {
             var size = Game.grid.tile.width;
-            this.requires('Solid, Color').attr({w: size*3, h: size*3}).collision([0,0],[0,this.h],[this.w,this.h],[this.w,0]).color('#000');
+            this.requires('Solid').attr({w: size*3, h: size*3}).collision([0,0],[0,this.h],[this.w,this.h],[this.w,0]);
 
             this.onHit('Player', this.allowFix, this.disallowFix);
         },
@@ -121,8 +149,8 @@
             App.trigger('disaster:disallowFix', this.item);
         },
 
-        setProximity: function() {
-            this.collider = Crafty.e('Obstacle').atGrid(this.gridX+1, this.gridY+1);
+        setProximity: function(disaster) {
+            this.collider = Crafty.e('Obstacle').addComponent('spr_' + disaster.toLowerCase()).atGrid(this.gridX+1, this.gridY+1);
 
             return this;
         },
@@ -143,7 +171,7 @@
 
         init: function() {
             var size = Game.grid.tile.width;
-            this.requires('Solid, Color').attr({w: size*3, h: size*3}).collision([0,0],[0,this.h],[this.w,this.h],[this.w,0]).color('#f66134');
+            this.requires('Solid').attr({w: size*3, h: size*3}).collision([0,0],[0,this.h],[this.w,this.h],[this.w,0]);
 
             this.onHit('Player', this.allowPickup, this.disallowPickup);
 
@@ -160,8 +188,8 @@
             App.trigger('item:disallowPickup', this.item);
         },
 
-        setProximity: function() {
-            this.collider = Crafty.e('Obstacle').atGrid(this.gridX+1, this.gridY+1);
+        setProximity: function(item) {
+            this.collider = Crafty.e('Obstacle').addComponent('spr_' + item.toLowerCase()).atGrid(this.gridX+1, this.gridY+1);
 
             return this;
         },
@@ -179,8 +207,18 @@
 
     Crafty.c('Player', {
         init:function() {
-            this.requires('Actor, Collision, Keyboard, Color').color('#440');
+            this.requires('Actor, Collision, Keyboard, spr_player, SpriteAnimation');
             this.bind('KeyDown', this.checkKey);
+            this.animate('PlayerMovingUp',    6, 0, 8)
+                .animate('PlayerMovingRight', 3, 0, 5)
+                .animate('PlayerMovingDown',  9, 0, 11)
+                .animate('PlayerMovingLeft',  0, 0, 2);
+            // These next lines define our four animations
+            //  each call to .animate specifies:
+            //  - the name of the animation
+            //  - the x and y coordinates within the sprite
+            //     map at which the animation set begins
+            //  - the number of animation frames *in addition to* the first one
         },
 
         checkKey: function() {
@@ -232,7 +270,7 @@
                             Game.disasters[key].itemX = Game.toGrid(this.x);
                             Game.disasters[key].itemY = Game.toGrid(this.y);
                             Crafty('Player').destroy();
-                            Crafty.e('Item').atGrid(Game.toGrid(x) - 1, Game.toGrid(y)).setProximity().nameItem(disaster.itemName);
+                            Crafty.e('Item').atGrid(Game.toGrid(x) - 1, Game.toGrid(y)).setProximity(disaster.itemName).nameItem(disaster.itemName);
                             Crafty.e('Player').atGrid(Game.toGrid(x), Game.toGrid(y));
                         }
 
