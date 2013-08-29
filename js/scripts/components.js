@@ -137,8 +137,10 @@
         allowFix: function() {
             Crafty('Player').fixAllowed = true;
             Crafty('Player').disaster = this;
-            if (Crafty('Player').item) {
-                App.trigger('disaster:allowFix', this.item);
+            if (Crafty('Player').item === this.requiredItem) {
+                App.trigger('disaster:allowFix', true);
+            } else {
+                App.trigger('disaster:allowFix', false);
             }
         },
 
@@ -179,13 +181,13 @@
 
         allowPickup: function() {
             Crafty('Player').itemPickup = this;
-            App.trigger('item:allowPickup', this.item);
+            App.trigger('item:allowPickup', Crafty('Player').item);
         },
 
         disallowPickup: function() {
             Crafty('Player').itemPickup = null;
             App.trigger('message:delete');
-            App.trigger('item:disallowPickup', this.item);
+            App.trigger('item:disallowPickup', Crafty('Player').item);
         },
 
         setProximity: function(item) {

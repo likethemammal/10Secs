@@ -167,20 +167,33 @@
             $('.current-item').children().hide();
         },
 
-        allowPickup: function() {
+        allowPickup: function(item) {
             $('.indicator').show();
+            if (!item) {
+                $('.indicator').children().attr('src', 'assets/indicator-check.png');
+            } else {
+                $('.indicator').children().attr('src', 'assets/indicator-x.png');
+            }
         },
 
         disallowPickup: function() {
             $('.indicator').hide();
+            $('.indicator').children().attr('src', '');
         },
 
-        allowFix: function() {
+        allowFix: function(canFix) {
             $('.indicator').show();
+            if (canFix) {
+                $('.indicator').children().attr('src', 'assets/indicator-check.png');
+            } else {
+                $('.indicator').children().attr('src', 'assets/indicator-x.png');
+            }
+
         },
 
         disallowFix: function() {
             $('.indicator').hide();
+            $('.indicator').children().attr('src', '');
         }
 
     });
