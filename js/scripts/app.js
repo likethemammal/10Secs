@@ -22,7 +22,12 @@
 
         render: function () {
             this.$el.html(this.template);
+            this.animateTitle();
             return this;
+        },
+
+        animateTitle: function() {
+            $('.start-title').delay(500).animate({top: "-60px"},{duration: 1000, specialEasing: { top: "easeOutBounce" }});
         },
 
         startGame: function() {
