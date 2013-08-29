@@ -215,12 +215,6 @@
                 .animate('PlayerMovingRight', 3, 0, 5)
                 .animate('PlayerMovingDown',  9, 0, 11)
                 .animate('PlayerMovingLeft',  0, 0, 2);
-            // These next lines define our four animations
-            //  each call to .animate specifies:
-            //  - the name of the animation
-            //  - the x and y coordinates within the sprite
-            //     map at which the animation set begins
-            //  - the number of animation frames *in addition to* the first one
         },
 
         checkKey: function() {

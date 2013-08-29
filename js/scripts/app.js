@@ -219,4 +219,6 @@
 
     _.extend(App, Backbone.Events);
 
+    window.addEventListener('load', _.bind(Game.start, Game));
+
 })();

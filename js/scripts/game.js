@@ -87,6 +87,4 @@
         victories: 0
     };
 
-    window.addEventListener('load', _.bind(Game.start, Game));
-
 })();
