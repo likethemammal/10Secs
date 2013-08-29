@@ -17,17 +17,17 @@
                 this.attr({ x: x * Game.grid.tile.width, y: y * Game.grid.tile.height });
                 return this;
             }
-        },
-
-        atPixel: function(x, y) {
-            if (x === undefined && y === undefined) {
-                return { x: this.x, y: this.y }
-            } else {
-                this.attr({ x: x, y: y});
-                return this;
-            }
-
         }
+
+//        atPixel: function(x, y) {
+//            if (x === undefined && y === undefined) {
+//                return { x: this.x, y: this.y }
+//            } else {
+//                this.attr({ x: x, y: y});
+//                return this;
+//            }
+//
+//        }
 
     });
 
@@ -266,17 +266,19 @@
                     var y = this.y;
 
                     for (var key in Game.disasters) {
-                        var disaster = Game.disasters[key];
+                        if (Game.disasters.hasOwnProperty(key)) {
+                            var disaster = Game.disasters[key];
 
-                        if (disaster.itemName === this.item) {
-                            Game.disasters[key].itemX = Game.toGrid(this.x);
-                            Game.disasters[key].itemY = Game.toGrid(this.y);
-                            Crafty('Player').destroy();
-                            Crafty.e('Item').atGrid(Game.toGrid(x) - 1, Game.toGrid(y)).setProximity(disaster.itemName).nameItem(disaster.itemName);
-                            Crafty.e('Player').atGrid(Game.toGrid(x), Game.toGrid(y));
+                            if (disaster.itemName === this.item) {
+                                Game.disasters[key].itemX = Game.toGrid(this.x);
+                                Game.disasters[key].itemY = Game.toGrid(this.y);
+                                Crafty('Player').destroy();
+                                Crafty.e('Item').atGrid(Game.toGrid(x) - 1, Game.toGrid(y)).setProximity(disaster.itemName).nameItem(disaster.itemName);
+                                Crafty.e('Player').atGrid(Game.toGrid(x), Game.toGrid(y));
+                            }
+
+                            disasters++;
                         }
-
-                        disasters++;
                     }
 
                     this.item = null;

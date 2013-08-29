@@ -8,8 +8,8 @@
 
         renderWalls();
 
-        var timeElapsed = 0;
-
+//        var timeElapsed = 0;
+//
 //        App.timer.every('1 second', function () {
 //            timeElapsed++;
 //
@@ -29,14 +29,16 @@
         var disasters = 0;
 
         for (var key in Game.disasters) {
-            var disaster = Game.disasters[key];
+            if (Game.disasters.hasOwnProperty(key)) {
+                var disaster = Game.disasters[key];
 
-            if (!disaster.completed) {
-                Crafty.e('Disaster').atGrid(disaster.gridX, disaster.gridY).setProximity(disaster.name).setNames(disaster.name, disaster.itemName);
-                Crafty.e('Item').atGrid(disaster.itemX, disaster.itemY).setProximity(disaster.itemName).nameItem(disaster.itemName);
+                if (!disaster.completed) {
+                    Crafty.e('Disaster').atGrid(disaster.gridX, disaster.gridY).setProximity(disaster.name).setNames(disaster.name, disaster.itemName);
+                    Crafty.e('Item').atGrid(disaster.itemX, disaster.itemY).setProximity(disaster.itemName).nameItem(disaster.itemName);
+                }
+
+                disasters++;
             }
-
-            disasters++;
         }
 
         Crafty.e('Obstacle').addComponent('spr_wall').atGrid(6, 7);
@@ -56,7 +58,7 @@
 //            .css(text_css);
 
 
-        var gameUI = new App.GameUI();
+        new App.GameUI();
 
         App.timer.start();
 
@@ -68,14 +70,13 @@
             App.timer.stop();
             App.timer.reset();
             App.timer.clear();
-            delete gameUI;
-
-            console.log(Game.lastFinished);
 
             var disasters = 0;
 
             for (var dis in Game.disasters) {
-                disasters++
+                if (Game.disasters.hasOwnProperty(dis)) {
+                    disasters++
+                }
             }
 
             if (Game.victories >= disasters) {
@@ -92,7 +93,7 @@
 
     Crafty.scene('VictoryMenu', function() {
         var delay = true;
-        var victoryMenu = new App.VictoryMenu();
+        new App.VictoryMenu();
 
         setTimeout(function() { delay = false; }, 500);
 
@@ -113,7 +114,7 @@
     Crafty.scene('GameOverMenu', function() {
         var delay = true;
 
-        var gameOverMenu = new App.GameOverMenu();
+        new App.GameOverMenu();
 
         setTimeout(function() { delay = false; }, 500);
 
@@ -133,13 +134,13 @@
 
     Crafty.scene('StartMenu', function(){
 
-        var startMenu = new App.StartMenu();
+        new App.StartMenu();
 
     });
 
     Crafty.scene('RoundMenu', function(){
         var delay = true;
-        var roundMenu = new App.RoundMenu();
+        new App.RoundMenu();
 
         setTimeout(function() { delay = false; }, 500);
 

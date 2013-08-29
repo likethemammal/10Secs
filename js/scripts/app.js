@@ -95,7 +95,7 @@
         },
 
         render: function () {
-            this.$el.html(this.template({rounds: Game.victories, text: 'You should be faster at this. Try better next time.', }));
+            this.$el.html(this.template({rounds: Game.victories, text: 'You should be faster at this. Try better next time.'}));
             return this;
         },
 
@@ -151,8 +151,6 @@
             messageView.text = message;
 
             messageView.render();
-
-            delete messageView;
         },
 
         deleteMessage: function() {
@@ -163,37 +161,41 @@
             $('.current-item').children().show().attr('src', 'assets/items/' + item.toLowerCase() + '.png');
         },
 
-        unsetItemUI: function(item, x, y) {
+        unsetItemUI: function(item) {
             $('.current-item').children().hide();
         },
 
         allowPickup: function(item) {
-            $('.indicator').show();
+            var $indicator = $('.indicator');
+            $indicator.show();
             if (!item) {
-                $('.indicator').children().attr('src', 'assets/indicator-check.png');
+                $indicator.children().attr('src', 'assets/indicator-check.png');
             } else {
-                $('.indicator').children().attr('src', 'assets/indicator-x.png');
+                $indicator.children().attr('src', 'assets/indicator-x.png');
             }
         },
 
         disallowPickup: function() {
-            $('.indicator').hide();
-            $('.indicator').children().attr('src', '');
+            var $indicator = $('.indicator');
+            $indicator.hide();
+            $indicator.children().attr('src', '');
         },
 
         allowFix: function(canFix) {
-            $('.indicator').show();
+            var $indicator = $('.indicator');
+            $indicator.show();
             if (canFix) {
-                $('.indicator').children().attr('src', 'assets/indicator-check.png');
+                $indicator.children().attr('src', 'assets/indicator-check.png');
             } else {
-                $('.indicator').children().attr('src', 'assets/indicator-x.png');
+                $indicator.children().attr('src', 'assets/indicator-x.png');
             }
 
         },
 
         disallowFix: function() {
-            $('.indicator').hide();
-            $('.indicator').children().attr('src', '');
+            var $indicator = $('.indicator');
+            $indicator.hide();
+            $indicator.children().attr('src', '');
         }
 
     });
@@ -204,8 +206,9 @@
         template: _.template($("#message-template").html()),
 
         render: function () {
-            if ($('.message').length) {
-                $('.message').children().text(this.text);
+            var $message = $('.message');
+            if ($message.length) {
+                $message.children().text(this.text);
                 return this;
             } else {
                 this.$el.prepend(this.template({message: this.text}));
