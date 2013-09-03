@@ -2,7 +2,7 @@
 
     Crafty.scene('GameLoop', function() {
 
-        Crafty.e('AnimationObject');
+        Crafty.e('AnimationObject').atGrid(Game.toGrid(Game.width()/2), Game.toGrid(Game.height()/2));
         Crafty.e('GrassBackground').atGrid(Game.toGrid(Game.map.locationX*3), Game.toGrid(Game.map.locationY*3));
         Crafty.e('Background').atGrid(Game.toGrid(Game.map.locationX), Game.toGrid(Game.map.locationY));
 

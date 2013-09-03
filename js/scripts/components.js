@@ -75,7 +75,7 @@
 
     Crafty.c('AnimationObject', {
         init: function() {
-            this.requires('Solid');
+            this.requires('Solid, InverseFourway').inverseFourway(Game.player.speed);
 
             var animation_speed = 8;
             this.bind('NewDirection', function(data) {
@@ -92,12 +92,16 @@
                     Crafty('Player').stop();
                 }
             });
+        },
+
+        playerLocation: function() {
+            return {x: Game.toGrid(Crafty('Player').x - this.x) + Game.toGrid(Crafty('Player').x), y: Game.toGrid(Crafty('Player').y - this.y) + Game.toGrid(Crafty('Player').y)};
         }
     });
 
     Crafty.c('Solid', {
         init: function() {
-            this.requires('Actor, Collision, InverseFourway').inverseFourway(3);
+            this.requires('Actor, Collision, InverseFourway').inverseFourway(Game.player.speed);
         },
 
         stopMovement: function() {
@@ -247,28 +251,30 @@
                         Crafty.trigger('WinRound', disasterName);
 
                     } else if (this.item) {
-
                         App.trigger('message:create', 'Wrong item, this disaster requires a different solution.');
-
-                        //ERROR: Wrong item, get different item for disaster;
+                    } else if (!this.item) {
+                        App.trigger('message:create', 'You must have an item to fix a disaster.');
                     }
                 } else if (this.item){
                     App.trigger('item:drop', this.item);
 
                     var disasters = 0;
-                    var x = this.x;
-                    var y = this.y;
+                    var coords = Crafty('AnimationObject').playerLocation();
+                    var x = coords.x;
+                    var y = coords.y;
+                    var playx = this.x;
+                    var playy = this.y;
 
                     for (var key in Game.disasters) {
                         if (Game.disasters.hasOwnProperty(key)) {
                             var disaster = Game.disasters[key];
 
                             if (disaster.itemName === this.item) {
-                                Game.disasters[key].itemX = Game.toGrid(this.x);
-                                Game.disasters[key].itemY = Game.toGrid(this.y);
+                                Game.disasters[key].itemX = x;
+                                Game.disasters[key].itemY = y;
                                 Crafty('Player').destroy();
-                                Crafty.e('Item').atGrid(Game.toGrid(x) - 1, Game.toGrid(y)).setProximity(disaster.itemName).nameItem(disaster.itemName);
-                                Crafty.e('Player').atGrid(Game.toGrid(x), Game.toGrid(y));
+                                Crafty.e('Item').atGrid(Game.toGrid(playx) - 1, Game.toGrid(playy)).setProximity(disaster.itemName).nameItem(disaster.itemName);
+                                Crafty.e('Player').atGrid(Game.toGrid(Game.width()/2), Game.toGrid(Game.height()/2));
                             }
 
                             disasters++;

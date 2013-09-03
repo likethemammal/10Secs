@@ -17,6 +17,12 @@
             multiplier: 2
         },
 
+        player: {
+            speed: 3,
+            locationX: 0,
+            locationY: 0
+        },
+
         width: function() {
             return this.grid.width * this.grid.tile.width;
         },

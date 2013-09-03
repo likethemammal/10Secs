@@ -27,7 +27,7 @@
         },
 
         animateTitle: function() {
-            $('.start-title').delay(500).animate({top: "-60px"},{duration: 1000, specialEasing: { top: "easeOutBounce" }});
+            $('.start-title').delay(500).animate({top: "-60px", width: '450px'},{duration: 1000, specialEasing: { top: "easeOutBounce", width: "easeOutBounce" }});
         },
 
         startGame: function() {
