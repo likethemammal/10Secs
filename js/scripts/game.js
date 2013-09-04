@@ -14,7 +14,9 @@
         map: {
             width: 0,
             height: 0,
-            multiplier: 2
+            multiplier: 2,
+            locationX: 0,
+            locationY: 0
         },
 
         player: {
@@ -61,6 +63,7 @@
         reset: function() {
             this.disasters = $.extend(true, {}, this.origDisasters);
             this.victories = 0;
+            this.timeElapsed = 0.0;
         },
 
         disasters: {
@@ -90,7 +93,9 @@
 
         origDisasters: {},
 
-        victories: 0
+        victories: 0,
+
+        timeElapsed: 0.0
     };
 
 })();

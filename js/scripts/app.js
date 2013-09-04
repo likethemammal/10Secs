@@ -2,7 +2,7 @@
 
     App = {};
 
-    App.timer = new Timer(1000);
+    App.timer = new Timer(100);
 
     App.StartMenu = Backbone.View.extend({
 
@@ -56,7 +56,7 @@
         },
 
         render: function () {
-            this.$el.html(this.template({text: "You've fixed all disasters and saved the world!"}));
+            this.$el.html(this.template({text: "You've fixed all disasters and saved the world!", time: Math.floor(Game.timeElapsed*10)/10}));
             return this;
         },
 
@@ -78,7 +78,13 @@
         },
 
         render: function () {
-            this.$el.html(this.template({text: "You've fixed a disaster! Get ready for the next one.", item: Game.disasters[Game.lastFinished].itemName, disaster: Game.lastFinished}));
+            var text = '';
+            if (Game.lastFinished === 'fire') {
+                text = 'by putting out the fire'
+            } else if (Game.lastFinished === 'homework') {
+                text = 'because the dog ate your homework'
+            }
+            this.$el.html(this.template({text: "You survived this round " + text + ". Can you survive the next round?", item: Game.disasters[Game.lastFinished].itemName, disaster: Game.lastFinished}));
             return this;
         },
 
@@ -100,7 +106,7 @@
         },
 
         render: function () {
-            this.$el.html(this.template({rounds: Game.victories, text: 'You should be faster at this. Try better next time.'}));
+            this.$el.html(this.template({rounds: Game.victories, text: 'You should be faster at this. Try better next time.', time: Math.floor(Game.timeElapsed*10)/10}));
             return this;
         },
 

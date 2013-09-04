@@ -8,23 +8,28 @@
 
         renderWalls();
 
-//        var timeElapsed = 0;
-//
-//        App.timer.every('1 second', function () {
-//            timeElapsed++;
-//
-//            $('.timer').children().text("Timer: " + (10 - timeElapsed));
-//
-//            if (timeElapsed >= 10) {
-//                timeElapsed = 0;
-//
-//                App.timer.stop();
-//                App.timer.reset();
-//                App.timer.clear();
-//
-//                Crafty.scene('GameOverMenu');
-//            }
-//        });
+        var timeElapsed = 0;
+
+        App.timer.every('1 second', function () {
+            timeElapsed++;
+
+            $('.timer').children().text("Timer: " + (10 - timeElapsed));
+
+            if (timeElapsed >= 10) {
+                timeElapsed = 0;
+
+                App.timer.stop();
+                App.timer.reset();
+                App.timer.clear();
+
+                Crafty.scene('GameOverMenu');
+            }
+        });
+
+        App.timer.every('100 milliseconds', function () {
+            Game.timeElapsed += 0.1;
+            console.log(Game.timeElapsed);
+        });
 
         var disasters = 0;
 
@@ -46,17 +51,6 @@
         Crafty.e('Obstacle').addComponent('spr_wall').atGrid(2, 10);
 
         Crafty.e('Player').atGrid(Game.toGrid(Game.width()/2), Game.toGrid(Game.height()/2));
-
-//        Crafty.e('Timer, 2D, DOM, Text')
-//            .text("Timer: " + (10 - timeElapsed))
-//            .attr({ x: 60, y: 0, w: Game.width() })
-//            .css(text_css);
-//
-//        Crafty.e('2D, DOM, Text')
-//            .text("Round: " + Game.victories + '/' + disasters)
-//            .attr({ x: 0, y: 0, w: Game.width() })
-//            .css(text_css);
-
 
         new App.GameUI();
 
@@ -97,8 +91,8 @@
 
         setTimeout(function() { delay = false; }, 500);
 
-        this.bind('KeyDown', function() {
-            if (!delay) {
+        this.bind('KeyDown', function(event) {
+            if (!delay && event.key === 32) {
                     Game.reset();
                     this.unbind('KeyDown');
                     Crafty.scene('Loading');
@@ -118,8 +112,8 @@
 
         setTimeout(function() { delay = false; }, 500);
 
-        this.bind('KeyDown', function() {
-            if (!delay) {
+        this.bind('KeyDown', function(event) {
+            if (!delay && event.key === 32) {
                 Game.reset();
                 this.unbind('KeyDown');
                 Crafty.scene('Loading');
@@ -144,8 +138,8 @@
 
         setTimeout(function() { delay = false; }, 500);
 
-        this.bind('KeyDown', function() {
-            if (!delay) {
+        this.bind('KeyDown', function(event) {
+            if (!delay && event.key === 32) {
                 this.unbind('KeyDown');
                 Crafty.scene('GameLoop');
             }
