@@ -2,7 +2,38 @@
 
     App = {};
 
+    App.init = function() {
+        this.loadTemplates();
+        window.addEventListener('load', _.bind(Game.start, Game));
+    };
+
     App.timer = new Timer(100);
+
+    App.templates = ['start', 'victory', 'round', 'game-over', 'game-ui', 'message'];
+
+    App.loadTemplates = function() {
+        var templates = App.templates;
+        for (var i = 0; i < App.templates.length; i++) {
+            var tmpl_dir = './templates';
+            var tmpl_url = tmpl_dir + '/' + templates[i] + '.ejs';
+            var tmpl_string = '';
+
+            $.ajax({
+                url: tmpl_url,
+                method: 'GET',
+                async: false,
+                contentType: 'text',
+                success: function (data) {
+                    tmpl_string = data;
+                }
+            });
+
+            $('head').append('<script id="' +
+                templates[i] + '-template" type="text/template">' + tmpl_string + '<\/script>');
+        }
+    };
+
+    App.init();
 
     App.StartMenu = Backbone.View.extend({
 
@@ -229,7 +260,5 @@
     });
 
     _.extend(App, Backbone.Events);
-
-    window.addEventListener('load', _.bind(Game.start, Game));
 
 })();

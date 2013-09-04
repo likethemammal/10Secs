@@ -6,68 +6,6 @@
         <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
 
-        <script type="text/template" id="start-template">
-
-            <img class="start-title" src="assets/title.png">
-            <div class="start-menu">
-                <div class="start-btn btn"><h3>Start</h3></div>
-                <div class="how-to-btn btn"><h3>How-to</h3></div>
-                <div class="website-btn btn"><a href="http://www.likethemammal.com/">WWW</a></div>
-            </div>
-
-        </script>
-
-        <script type="text/template" id="game-ui-template">
-
-            <div class="game-ui">
-                <div class="rounds ui"><h3>Round: <%= Game.victories + 1 %>/2</h3></div>
-                <div class="timer ui"><h3>Timer: 10</h3></div>
-                <div class="current-item ui"><img src=""></div>
-                <div class="indicator ui"><img src=""></div>
-            </div>
-
-        </script>
-
-        <script type="text/template" id="message-template">
-
-            <div class="message ui"><h3><%= message %></h3></div>
-
-        </script>
-
-        <script type="text/template" id="victory-template">
-
-            <div class="victory-menu">
-                <div class="text-block"><p><%= text %></p></div>
-                <div class="time-elapsed"><p><%= time %> seconds elapsed</p></div>
-                <p class="space">- Space to continue -</p>
-                <div class="website-btn btn"><a href="http://www.likethemammal.com/">WWW</a></div>
-            </div>
-        </script>
-
-        <script type="text/template" id="round-template">
-
-            <div class="round-menu">
-                <div class="text-block"><p><%= text %></p></div>
-                <div class="item-menu"><div class="item"><img src="<%= 'assets/items/' + item.toLowerCase() + '.png' %>"></div><h3><%= item.toLowerCase() %></h3></div>
-                <div class="disaster-menu"><div class="disaster"><img src="<%= 'assets/disasters/' + disaster.toLowerCase() + '.png' %>"></div><h3><%= disaster.toLowerCase() %></h3></div>
-                <p class="space">- Space to continue -</p>
-                <div class="website-btn btn"><a href="http://www.likethemammal.com/">WWW</a></div>
-            </div>
-
-        </script>
-
-        <script type="text/template" id="game-over-template">
-
-            <div class="game-over-menu">
-                <div class="text-block"><p><%= text %></p></div>
-                <div class="rounds-completed"><div class="rounds-menu"><h3><%= rounds %> rounds completed</h3></div></div>
-                <div class="time-elapsed"><p><%= time %> seconds elapsed</p></div>
-                <p class="space">- Space to continue -</p>
-                <div class="website-btn btn"><a href="http://www.likethemammal.com/">WWW</a></div>
-            </div>
-
-        </script>
-
         <script src="js/lib/Timer.js"></script>
 
         <script src="js/lib/crafty-0.5.4.js"></script>
