@@ -86,16 +86,28 @@
                 gridY: -5,
                 sprite: '',
                 itemName: 'Dog',
-                itemX: -5,
-                itemY: 14,
+                itemX: 7,
+                itemY: 19,
                 completed: false,
-                text: 'because the dog ate your homework'
+                text: 'because the dog ate your homework',
+                renderScenery: function() {
+                    console.log(this);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width*5, h: Game.grid.tile.height*4}).atGrid(6, 18);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(5, 18);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(11, 18);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(10, 17);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(10, 17);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(5, 21);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(4, 21);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(5, 20);
+
+                }
             },
 
             man: {
                 name: 'man',
                 gridX: 6,
-                gridY: 9,
+                gridY: 8,
                 sprite: '',
                 itemName: 'Hippie',
                 itemX: 6,
@@ -111,10 +123,12 @@
                     manBuilding.alpha = 1;
                     manBuilding.z = 10;
 
-                    Crafty.e('Solid, Color')
-                        .attr({w: Game.grid.tile.width*5, h: Game.grid.tile.height*3})
-                        .color('#A7A7A7')
-                        .atGrid(4, 7);
+                    Crafty.e('Solid, Color').attr({w: Game.grid.tile.width*5, h: Game.grid.tile.height*3}).color('#A7A7A7').atGrid(4, 7);
+                    Crafty.e('Solid, Color').attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).color('#A7A7A7').atGrid(3, 7);
+                    Crafty.e('Solid, Color').attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).color('#A7A7A7').atGrid(3, 8);
+                    Crafty.e('Solid, Color').attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).color('#A7A7A7').atGrid(3, 8);
+                    Crafty.e('Solid, Color').attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).color('#A7A7A7').atGrid(8, 10);
+                    Crafty.e('Solid, Color').attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).color('#A7A7A7').atGrid(9, 9);
 
                     Crafty.e('Image, Obstacle')
                         .image("assets/extras/money-bag.png", "no-repeat")
@@ -129,6 +143,19 @@
                         .image("assets/extras/money-bag.png", "no-repeat")
                         .atGrid(8, 8);
                 }
+            },
+
+            ufo: {
+                name: 'ufo',
+                gridX: 26,
+                gridY: 7,
+                sprite: '',
+                itemName: 'Cow',
+                itemX: -5,
+                itemY: 14,
+                completed: false,
+                text: 'by sacrificing the cow'
+
             }
         },
 

@@ -209,7 +209,7 @@
 
         setProximity: function(item) {
             this.collider = Crafty.e('Obstacle').addComponent('spr_' + item.toLowerCase()).atGrid(this.gridX+1, this.gridY+1);
-
+            this.collider.z = 100;
             return this;
         },
 

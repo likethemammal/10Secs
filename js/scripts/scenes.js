@@ -32,9 +32,7 @@
 
         renderGameObjects();
 
-        Crafty.e('Obstacle').addComponent('spr_wall').atGrid(3, 3);
-        Crafty.e('Obstacle').addComponent('spr_wall').atGrid(9, 9);
-        Crafty.e('Obstacle').addComponent('spr_wall').atGrid(2, 10);
+        Crafty.e('Obstacle').addComponent('spr_wall').atGrid(0, 0);
 
 
         Crafty.e('Player').atGrid(Game.toGrid(Game.width()/2), Game.toGrid(Game.height()/2));
@@ -139,7 +137,8 @@
             'assets/wall16.png',
             'assets/wall32.png',
             'assets/extras/man-building.png',
-            'assets/extras/money-bag.png'
+            'assets/extras/money-bag.png',
+            'assets/background-grass.png'
         ], function(){
 
             Crafty.sprite(Game.grid.tile.width, 'assets/wall' + Game.grid.tile.width + '.png', {
@@ -156,7 +155,7 @@
                 spr_hippie: [0,0],
                 spr_man: [1,0],
                 spr_cow: [2,0],
-                spr_alien: [3,0],
+                spr_ufo: [3,0],
                 spr_scissors: [4,0],
                 spr_tnt: [5,0],
                 spr_extinguisher: [6,0],
@@ -197,8 +196,10 @@
                     if (disaster.renderScenery) {
                         disaster.renderScenery()
                     }
-                    Crafty.e('Disaster').atGrid(disaster.gridX, disaster.gridY).setProximity(disaster.name).setNames(disaster.name, disaster.itemName);
-                    Crafty.e('Item').atGrid(disaster.itemX, disaster.itemY).setProximity(disaster.itemName).nameItem(disaster.itemName);
+                    var dis = Crafty.e('Disaster').atGrid(disaster.gridX, disaster.gridY).setProximity(disaster.name).setNames(disaster.name, disaster.itemName);
+                    dis.z = 1000;
+                    var itm = Crafty.e('Item').atGrid(disaster.itemX, disaster.itemY).setProximity(disaster.itemName).nameItem(disaster.itemName);
+
                 } else {
                     if (disaster.renderScenery) {
                         disaster.renderScenery()
