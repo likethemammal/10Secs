@@ -76,7 +76,8 @@
                 itemName: 'Extinguisher',
                 itemX: 4,
                 itemY: 15,
-                completed: false
+                completed: false,
+                text: 'by putting out the fire'
             },
 
             homework: {
@@ -87,7 +88,47 @@
                 itemName: 'Dog',
                 itemX: -5,
                 itemY: 14,
-                completed: false
+                completed: false,
+                text: 'because the dog ate your homework'
+            },
+
+            man: {
+                name: 'man',
+                gridX: 6,
+                gridY: 9,
+                sprite: '',
+                itemName: 'Hippie',
+                itemX: 6,
+                itemY: 10,
+                completed: false,
+                text: 'because the hippie beat The Man',
+                renderScenery: function() {
+                    var manBuilding = Crafty.e('Image, Obstacle')
+                        .image("assets/extras/man-building.png", "no-repeat")
+                        .atGrid(5, 5);
+
+                    manBuilding.collision([0,manBuilding.h*3/4], [manBuilding.w,manBuilding.h*3/4], [manBuilding.w,manBuilding.h], [0,manBuilding.h]);
+                    manBuilding.alpha = 1;
+                    manBuilding.z = 10;
+
+                    Crafty.e('Solid, Color')
+                        .attr({w: Game.grid.tile.width*5, h: Game.grid.tile.height*3})
+                        .color('#A7A7A7')
+                        .atGrid(4, 7);
+
+                    Crafty.e('Image, Obstacle')
+                        .image("assets/extras/money-bag.png", "no-repeat")
+                        .atGrid(4, 8);
+                    Crafty.e('Image, Obstacle')
+                        .image("assets/extras/money-bag.png", "no-repeat")
+                        .atGrid(5, 9);
+                    Crafty.e('Image, Obstacle')
+                        .image("assets/extras/money-bag.png", "no-repeat")
+                        .atGrid(7, 9);
+                    Crafty.e('Image, Obstacle')
+                        .image("assets/extras/money-bag.png", "no-repeat")
+                        .atGrid(8, 8);
+                }
             }
         },
 

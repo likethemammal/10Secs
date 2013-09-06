@@ -1,5 +1,6 @@
 <div class="game-ui">
-    <div class="rounds ui"><h3>Round: <%= Game.victories + 1 %>/2</h3></div>
+    <% var numDisasters = Object.keys(Game.disasters).length %>
+    <div class="rounds ui"><h3>Round: <%= Game.victories + 1 + '/' + numDisasters %></h3></div>
     <div class="timer ui"><h3>Timer: 10</h3></div>
     <div class="current-item ui"><img src=""></div>
     <div class="indicator ui"><img src=""></div>

@@ -28,33 +28,20 @@
 
         App.timer.every('100 milliseconds', function () {
             Game.timeElapsed += 0.1;
-            console.log(Game.timeElapsed);
         });
 
-        var disasters = 0;
+        renderGameObjects();
 
-        for (var key in Game.disasters) {
-            if (Game.disasters.hasOwnProperty(key)) {
-                var disaster = Game.disasters[key];
-
-                if (!disaster.completed) {
-                    Crafty.e('Disaster').atGrid(disaster.gridX, disaster.gridY).setProximity(disaster.name).setNames(disaster.name, disaster.itemName);
-                    Crafty.e('Item').atGrid(disaster.itemX, disaster.itemY).setProximity(disaster.itemName).nameItem(disaster.itemName);
-                }
-
-                disasters++;
-            }
-        }
-
-        Crafty.e('Obstacle').addComponent('spr_wall').atGrid(6, 7);
+        Crafty.e('Obstacle').addComponent('spr_wall').atGrid(3, 3);
         Crafty.e('Obstacle').addComponent('spr_wall').atGrid(9, 9);
         Crafty.e('Obstacle').addComponent('spr_wall').atGrid(2, 10);
+
 
         Crafty.e('Player').atGrid(Game.toGrid(Game.width()/2), Game.toGrid(Game.height()/2));
 
         new App.GameUI();
 
-        App.timer.start();
+//        App.timer.start();
 
         this.bind('WinRound', _.bind(function(disaster) {
             Game.disasters[disaster].completed = true;
@@ -65,15 +52,7 @@
             App.timer.reset();
             App.timer.clear();
 
-            var disasters = 0;
-
-            for (var dis in Game.disasters) {
-                if (Game.disasters.hasOwnProperty(dis)) {
-                    disasters++
-                }
-            }
-
-            if (Game.victories >= disasters) {
+            if (Game.victories >= Object.keys(Game.disasters).length) {
                 Crafty.scene('VictoryMenu');
             } else {
                 Crafty.scene('RoundMenu');
@@ -158,16 +137,19 @@
             'assets/items/dog.png',
             'assets/items_and_disasters.png',
             'assets/wall16.png',
-            'assets/wall32.png'
+            'assets/wall32.png',
+            'assets/extras/man-building.png',
+            'assets/extras/money-bag.png'
         ], function(){
 
             Crafty.sprite(Game.grid.tile.width, 'assets/wall' + Game.grid.tile.width + '.png', {
                 spr_wall:    [0, 0]
             });
 
-            Crafty.sprite(Game.grid.tile.width, 'assets/player.png', {
+            //Needs padding to fix between Collision objects
+            Crafty.sprite(Game.grid.tile.width - 2, 'assets/player.png', {
                 spr_player:    [10, 0]
-            }, 0, 2);
+            }, 2, 2);
 
 
             Crafty.sprite(Game.grid.tile.width, 'assets/items_and_disasters.png', {
@@ -204,6 +186,26 @@
 
         createWall(Game.toGrid(Game.map.locationX), Game.toGrid(Game.map.locationY), Game.grid.tile.width, Game.map.height);
         createWall(Game.toGrid(Game.map.width - 14*Game.grid.tile.width), Game.toGrid(Game.map.locationY), Game.grid.tile.width, Game.map.height);
+    }
+
+    function renderGameObjects() {
+        for (var key in Game.disasters) {
+            if (Game.disasters.hasOwnProperty(key)) {
+                var disaster = Game.disasters[key];
+
+                if (!disaster.completed) {
+                    if (disaster.renderScenery) {
+                        disaster.renderScenery()
+                    }
+                    Crafty.e('Disaster').atGrid(disaster.gridX, disaster.gridY).setProximity(disaster.name).setNames(disaster.name, disaster.itemName);
+                    Crafty.e('Item').atGrid(disaster.itemX, disaster.itemY).setProximity(disaster.itemName).nameItem(disaster.itemName);
+                } else {
+                    if (disaster.renderScenery) {
+                        disaster.renderScenery()
+                    }
+                }
+            }
+        }
     }
 
 })();

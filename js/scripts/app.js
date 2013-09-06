@@ -109,12 +109,7 @@
         },
 
         render: function () {
-            var text = '';
-            if (Game.lastFinished === 'fire') {
-                text = 'by putting out the fire'
-            } else if (Game.lastFinished === 'homework') {
-                text = 'because the dog ate your homework'
-            }
+            var text = Game.disasters[Game.lastFinished].text;
             this.$el.html(this.template({text: "You survived this round " + text + ". Can you survive the next round?", item: Game.disasters[Game.lastFinished].itemName, disaster: Game.lastFinished}));
             return this;
         },

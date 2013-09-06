@@ -9,8 +9,14 @@
         },
 
         atGrid: function(x, y) {
+            if (this.isDisaster || this.isItem) {
+                x -= 1;
+                y -= 1;
+            }
+
             this.gridX = x;
             this.gridY = y;
+
             if (x === undefined && y === undefined) {
                 return { x: this.x/Game.grid.tile.width, y: this.y/Game.grid.tile.height }
             } else {
@@ -64,6 +70,7 @@
     Crafty.c('Background', {
         init: function() {
             this.requires('Solid, Image').attr({w: Game.map.width, h: Game.map.height}).image('assets/background-tile.png', "repeat");
+//            this.requires('Solid, Image').attr({w: Game.map.width, h: Game.map.height}).image('assets/background-laser-grid.png', "repeat");
         }
     });
 
@@ -131,6 +138,8 @@
 
     Crafty.c('Disaster', {
 
+        isDisaster: true,
+
         init: function() {
             var size = Game.grid.tile.width;
             this.requires('Solid').attr({w: size*3, h: size*3}).collision([0,0],[0,this.h],[this.w,this.h],[this.w,0]);
@@ -153,17 +162,19 @@
             Crafty('Player').disaster = null;
             App.trigger('message:delete');
             App.trigger('disaster:disallowFix', this.item);
+            return this;
         },
 
         setProximity: function(disaster) {
             this.collider = Crafty.e('Obstacle').addComponent('spr_' + disaster.toLowerCase()).atGrid(this.gridX+1, this.gridY+1);
-
+            this.collider.z = 100;
             return this;
         },
 
         setNames: function(disasterName, itemName) {
             this.name = disasterName;
             this.requiredItem = itemName;
+            return this;
         },
 
         cleanup: function() {
@@ -174,6 +185,8 @@
 
     Crafty.c('Item', {
         name: 'item',
+
+        isItem: true,
 
         init: function() {
             var size = Game.grid.tile.width;
@@ -219,6 +232,9 @@
                 .animate('PlayerMovingRight', 3, 0, 5)
                 .animate('PlayerMovingDown',  9, 0, 11)
                 .animate('PlayerMovingLeft',  0, 0, 2);
+
+            //Make player's hit box skinnier
+            this.collision([8,0],[this.w - 8,0],[this.w - 8,this.h],[8,this.h]);
         },
 
         checkKey: function() {
