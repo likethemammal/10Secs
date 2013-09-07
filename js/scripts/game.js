@@ -151,11 +151,51 @@
                 gridY: 7,
                 sprite: '',
                 itemName: 'Cow',
-                itemX: -5,
+                itemX: 0,
                 itemY: 14,
                 completed: false,
-                text: 'by sacrificing the cow'
+                text: 'by sacrificing the cow',
+                renderScenery: function() {
 
+                    //Disaster related
+                    Crafty.e('Solid, Color').color("#bfbfbf").attr({w: Game.grid.tile.width*6, h: Game.grid.tile.height*4}).atGrid(24, 7);
+                    Crafty.e('Solid, Color').color("#bfbfbf").attr({w: Game.grid.tile.width*6, h: Game.grid.tile.height*3}).atGrid(26, 6);
+
+                    Crafty.e('Solid, Image').image('assets/parking-lot.png', "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height*3}).atGrid(25, 7);
+                    Crafty.e('Solid, Image').image('assets/parking-lot.png', "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height*4}).atGrid(27, 6);
+                    Crafty.e('Solid, Image').image('assets/parking-lot.png', "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height*4}).atGrid(29, 6);
+
+                    Crafty.e('Solid, Image').image('assets/parking-cracked.png', "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(31, 6);
+                    Crafty.e('Solid, Image').image('assets/parking-cracked.png', "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(31, 7);
+                    Crafty.e('Solid, Image').image('assets/parking-cracked.png', "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(27, 8);
+                    Crafty.e('Solid, Image').image('assets/parking-cracked.png', "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(25, 10);
+
+                    Crafty.e('Obstacle, Image').image('assets/extras/cars1.png', "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(27, 8);
+                    Crafty.e('Obstacle, Image').image('assets/extras/cars2.png', "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(29, 8);
+                    Crafty.e('Obstacle, Image').image('assets/extras/cars3.png', "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(29, 6);
+                    Crafty.e('Obstacle, Image').image('assets/extras/cars4.png', "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(25, 9);
+
+
+                    //Item related
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width*6, h: Game.grid.tile.height*6}).atGrid(-3, 12);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(-4, 12);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(-4, 13);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(3, 13);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(1, 18);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(3, 15);
+
+                    Crafty.e('Obstacle, Image').image("assets/extras/hay.png", "no-repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(1, 16);
+                    Crafty.e('Obstacle, Image').image("assets/extras/hay.png", "no-repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(2, 15);
+                    Crafty.e('Obstacle, Image').image("assets/extras/hay.png", "no-repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(-2, 16);
+
+                    var barn = Crafty.e('Image, Obstacle').image("assets/extras/barn.png", "no-repeat").atGrid(-1, 11);
+
+                    barn.collision([0,barn.h*3/4], [barn.w, barn.h*3/4], [barn.w,barn.h], [0,barn.h]);
+                    barn.alpha = 1;
+                    barn.z = 10;
+
+
+                }
             }
         },
 

@@ -138,7 +138,11 @@
             'assets/wall32.png',
             'assets/extras/man-building.png',
             'assets/extras/money-bag.png',
-            'assets/background-grass.png'
+            "assets/extras/barn.png",
+            "assets/extras/hay.png",
+            'assets/background-grass.png',
+            'assets/parking-lot.png',
+            'assets/parking-cracked.png'
         ], function(){
 
             Crafty.sprite(Game.grid.tile.width, 'assets/wall' + Game.grid.tile.width + '.png', {
