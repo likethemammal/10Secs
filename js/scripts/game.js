@@ -74,10 +74,33 @@
                 gridY: 17,
                 sprite: '',
                 itemName: 'Extinguisher',
-                itemX: 4,
-                itemY: 15,
+                itemX: 20,
+                itemY: 17,
                 completed: false,
-                text: 'by putting out the fire'
+                text: 'by putting out the fire',
+                renderScenery: function() {
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width*12, h: Game.grid.tile.height*7}).atGrid(12, 14);
+
+                    var barn = Crafty.e('Image, Obstacle').image("assets/extras/house.png", "no-repeat").atGrid(17, 14);
+
+                    barn.collision([0,barn.h*3/4], [barn.w, barn.h*3/4], [barn.w,barn.h], [0,barn.h]);
+                    barn.alpha = 1;
+                    barn.z = 10;
+
+                    Crafty.e('Image, Obstacle')
+                        .image("assets/extras/firewood.png", "no-repeat")
+                        .atGrid(16, 17);
+                    Crafty.e('Image, Obstacle')
+                        .image("assets/extras/firewood.png", "no-repeat")
+                        .atGrid(19, 19);
+                    Crafty.e('Image, Obstacle')
+                        .image("assets/extras/firewood.png", "no-repeat")
+                        .atGrid(13, 18);
+                    Crafty.e('Image, Obstacle')
+                        .image("assets/extras/firewood.png", "no-repeat")
+                        .atGrid(16, 17);
+                }
+
             },
 
             homework: {
@@ -91,7 +114,22 @@
                 completed: false,
                 text: 'because the dog ate your homework',
                 renderScenery: function() {
-                    console.log(this);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width*12, h: Game.grid.tile.height*5}).atGrid(18, -5);
+
+                    var manBuilding = Crafty.e('Image, Obstacle') .image("assets/extras/schoolhouse.png", "no-repeat").atGrid(20, -6);
+
+                    manBuilding.collision([0,manBuilding.h*3/4], [manBuilding.w,manBuilding.h*3/4], [manBuilding.w,manBuilding.h], [0,manBuilding.h]);
+                    manBuilding.alpha = 1;
+                    manBuilding.z = 10;
+
+                    var swing = Crafty.e('Image, Obstacle') .image("assets/extras/swing.png", "no-repeat").atGrid(26, -4);
+
+                    swing.collision([0,swing.h*3/4], [swing.w,swing.h*3/4], [swing.w,swing.h], [0,swing.h]);
+                    swing.alpha = 1;
+                    swing.z = 10;
+
+
+                    //Dog Assets
                     Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width*5, h: Game.grid.tile.height*4}).atGrid(6, 18);
                     Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(5, 18);
                     Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(11, 18);
@@ -110,8 +148,8 @@
                 gridY: 8,
                 sprite: '',
                 itemName: 'Hippie',
-                itemX: 6,
-                itemY: 10,
+                itemX: -6,
+                itemY: 5,
                 completed: false,
                 text: 'because the hippie beat The Man',
                 renderScenery: function() {
@@ -142,6 +180,24 @@
                     Crafty.e('Image, Obstacle')
                         .image("assets/extras/money-bag.png", "no-repeat")
                         .atGrid(8, 8);
+
+
+                    //Item related
+                    Crafty.e('Solid, Image').image("assets/background-grass2.png", "repeat").attr({w: Game.grid.tile.width*6, h: Game.grid.tile.height*6}).atGrid(-9, 3);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "no-repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(-5, 6);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "no-repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(-4, 5);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "no-repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(-4, 8);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "no-repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(-9, 7);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width*2, h: Game.grid.tile.height}).atGrid(-6, 9);
+                    Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height*4}).atGrid(-10, 3);
+
+                    Crafty.e('Solid, Image').image("assets/extras/carpet.png", "no-repeat").atGrid(-8, 4);
+
+                    Crafty.e('Image, Obstacle')
+                        .image("assets/extras/bong.png", "no-repeat")
+                        .atGrid(-7, 4);
+
+
                 }
             },
 
@@ -193,7 +249,6 @@
                     barn.collision([0,barn.h*3/4], [barn.w, barn.h*3/4], [barn.w,barn.h], [0,barn.h]);
                     barn.alpha = 1;
                     barn.z = 10;
-
 
                 }
             }

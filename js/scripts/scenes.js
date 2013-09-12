@@ -140,7 +140,14 @@
             'assets/extras/money-bag.png',
             "assets/extras/barn.png",
             "assets/extras/hay.png",
+            "assets/extras/schoolhouse.png",
+            "assets/extras/house.png",
+            "assets/extras/firewood.png",
+            "assets/extras/swing.png",
+            "assets/extras/carpet.png",
+            "assets/extras/bong.png",
             'assets/background-grass.png',
+            'assets/background-grass2.png',
             'assets/parking-lot.png',
             'assets/parking-cracked.png'
         ], function(){
