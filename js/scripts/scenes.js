@@ -152,8 +152,13 @@
             "assets/extras/smoke2.png",
             "assets/extras/rock.png",
             "assets/extras/rock2.png",
+            "assets/extras/appliances.png",
+            "assets/extras/cabinets.png",
+            "assets/extras/tile.png",
+            "assets/extras/puddle.png",
             'assets/background-grass.png',
             'assets/background-grass2.png',
+            'assets/background-rocks.png',
             'assets/parking-lot.png',
             'assets/parking-cracked.png'
         ], function(){
