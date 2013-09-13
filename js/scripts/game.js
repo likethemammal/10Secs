@@ -98,7 +98,14 @@
                         .atGrid(13, 18);
                     Crafty.e('Image, Obstacle')
                         .image("assets/extras/firewood.png", "no-repeat")
-                        .atGrid(16, 17);
+                        .atGrid(23, 16);
+
+                    var smk = Crafty.e('Solid, Image').image("assets/extras/smoke2.png", "no-repeat").atGrid(13, 15);
+                    var smk2 = Crafty.e('Solid, Image').image("assets/extras/smoke2.png", "no-repeat").atGrid(20, 14);
+                    var smk3 = Crafty.e('Solid, Image').image("assets/extras/smoke2.png", "no-repeat").atGrid(19, 19);
+                    smk.z = 10;
+                    smk2.z = 10;
+                    smk3.z = 10;
                 }
 
             },
@@ -122,7 +129,7 @@
                     manBuilding.alpha = 1;
                     manBuilding.z = 10;
 
-                    var swing = Crafty.e('Image, Obstacle') .image("assets/extras/swing.png", "no-repeat").atGrid(26, -4);
+                    var swing = Crafty.e('Image, Obstacle').image("assets/extras/swing.png", "no-repeat").atGrid(26, -4);
 
                     swing.collision([0,swing.h*3/4], [swing.w,swing.h*3/4], [swing.w,swing.h], [0,swing.h]);
                     swing.alpha = 1;
@@ -138,6 +145,9 @@
                     Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(5, 21);
                     Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(4, 21);
                     Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(5, 20);
+
+                    Crafty.e('Image, Obstacle').image("assets/extras/bone.png", "no-repeat").atGrid(8, 18);
+                    Crafty.e('Image, Obstacle').image("assets/extras/ball.png", "no-repeat").atGrid(9, 21);
 
                 }
             },
@@ -192,6 +202,13 @@
                     Crafty.e('Solid, Image').image("assets/background-grass.png", "repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height*4}).atGrid(-10, 3);
 
                     Crafty.e('Solid, Image').image("assets/extras/carpet.png", "no-repeat").atGrid(-8, 4);
+                    var smk = Crafty.e('Solid, Image').image("assets/extras/smoke.png", "no-repeat").atGrid(-7, 2);
+                    var smk2 = Crafty.e('Solid, Image').image("assets/extras/smoke2.png", "no-repeat").atGrid(-5, 4);
+                    var smk3 = Crafty.e('Solid, Image').image("assets/extras/smoke2.png", "no-repeat").atGrid(-10, 6);
+
+                    smk.z = 10;
+                    smk2.z = 10;
+                    smk3.z = 10;
 
                     Crafty.e('Image, Obstacle')
                         .image("assets/extras/bong.png", "no-repeat")
@@ -249,6 +266,43 @@
                     barn.collision([0,barn.h*3/4], [barn.w, barn.h*3/4], [barn.w,barn.h], [0,barn.h]);
                     barn.alpha = 1;
                     barn.z = 10;
+
+                }
+            },
+
+            tnt: {
+                name: 'tnt',
+                gridX: 5,
+                gridY: 1,
+                sprite: '',
+                itemName: 'Scissors',
+                itemX: 8,
+                itemY: -9,
+                completed: false,
+                text: "by cutting the tnt's fuse.",
+                renderScenery: function() {
+
+                    //Disaster related
+
+                    var manBuilding = Crafty.e('Image, Obstacle').image("assets/extras/rock.png", "no-repeat").atGrid(2, -2);
+                    manBuilding.collision([0,manBuilding.h*3/4], [manBuilding.w,manBuilding.h*3/4], [manBuilding.w,manBuilding.h], [0,manBuilding.h]);
+                    manBuilding.z = 10;
+
+                    var manBuilding2 = Crafty.e('Image, Obstacle').image("assets/extras/rock.png", "no-repeat").atGrid(6, -3);
+                    manBuilding2.collision([0,manBuilding.h*3/4], [manBuilding.w,manBuilding.h*3/4], [manBuilding.w,manBuilding.h], [0,manBuilding.h]);
+                    manBuilding2.z = 10;
+
+                    var manBuilding3 = Crafty.e('Image, Obstacle').image("assets/extras/rock.png", "no-repeat").atGrid(7, -1);
+                    manBuilding3.collision([0,manBuilding.h*3/4], [manBuilding.w,manBuilding.h*3/4], [manBuilding.w,manBuilding.h], [0,manBuilding.h]);
+                    manBuilding3.z = 10;
+
+                    var manBuilding4 = Crafty.e('Image, Obstacle').image("assets/extras/rock.png", "no-repeat").atGrid(3, -4);
+                    manBuilding4.collision([0,manBuilding.h*3/4], [manBuilding.w,manBuilding.h*3/4], [manBuilding.w,manBuilding.h], [0,manBuilding.h]);
+                    manBuilding4.z = 9;
+
+                    Crafty.e('Obstacle, Image').image('assets/extras/rock2.png', "no-repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(5, 0);
+                    Crafty.e('Obstacle, Image').image('assets/extras/rock2.png', "no-repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(6, 1);
+                    Crafty.e('Obstacle, Image').image('assets/extras/rock2.png', "no-repeat").attr({w: Game.grid.tile.width, h: Game.grid.tile.height}).atGrid(6, -2);
 
                 }
             }
