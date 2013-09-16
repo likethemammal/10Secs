@@ -32,9 +32,6 @@
 
         renderGameObjects();
 
-        Crafty.e('Obstacle').addComponent('spr_wall').atGrid(0, 0);
-
-
         Crafty.e('Player').atGrid(Game.toGrid(Game.width()/2), Game.toGrid(Game.height()/2));
 
         new App.GameUI();
@@ -132,7 +129,6 @@
 
         Crafty.load([
             'assets/player.png',
-            'assets/items/dog.png',
             'assets/items_and_disasters.png',
             'assets/wall16.png',
             'assets/wall32.png',
