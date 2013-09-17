@@ -251,6 +251,7 @@
                     var dis = Crafty.e('Disaster').atGrid(disaster.gridX, disaster.gridY).setProximity(disaster.name).setNames(disaster.name, disaster.itemName);
                     dis.z = 1000;
                     var itm = Crafty.e('Item').atGrid(disaster.itemX, disaster.itemY).setProximity(disaster.itemName).nameItem(disaster.itemName);
+                    itm.z = 100;
 
                 } else {
                     if (disaster.renderScenery) {

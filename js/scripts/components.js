@@ -221,6 +221,7 @@
 
         nameItem: function(name) {
             this.name = name;
+            return this;
         }
     });
 
