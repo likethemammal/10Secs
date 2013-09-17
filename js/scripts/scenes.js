@@ -128,14 +128,42 @@
     Crafty.scene('Loading', function(){
 
         Crafty.load([
+            'assets/title.png',
             'assets/player.png',
             'assets/items_and_disasters.png',
             'assets/wall16.png',
             'assets/wall32.png',
+
+            'assets/current-item-ui.png',
+            'assets/message.png',
+            'assets/text-block.png',
+            'assets/timer-ui.png',
+            'assets/tooltip-ui.png',
+            'assets/website-btn.png',
+            "assets/indicator-check.png",
+            "assets/indicator-x.png",
+
+
+            'assets/items/cow.png',
+            'assets/items/dog.png',
+            'assets/items/extinguisher.png',
+            'assets/items/hippie.png',
+            'assets/items/scissors.png',
+
+            'assets/disasters/fire.png',
+            'assets/disasters/homework.png',
+            'assets/disasters/man.png',
+            'assets/disasters/tnt.png',
+            'assets/disasters/ufo.png',
+
             'assets/extras/man-building.png',
             'assets/extras/money-bag.png',
             "assets/extras/barn.png",
             "assets/extras/hay.png",
+            "assets/extras/cars1.png",
+            "assets/extras/cars2.png",
+            "assets/extras/cars3.png",
+            "assets/extras/cars4.png",
             "assets/extras/schoolhouse.png",
             "assets/extras/swing.png",
             "assets/extras/bone.png",
@@ -152,12 +180,16 @@
             "assets/extras/cabinets.png",
             "assets/extras/tile.png",
             "assets/extras/puddle.png",
+
             'assets/background-grass.png',
             'assets/background-grass2.png',
             'assets/background-rocks.png',
+            'assets/background-tile.png',
+
             'assets/parking-lot.png',
             'assets/parking-cracked.png'
-        ], function(){
+
+        ], function() {
 
             Crafty.sprite(Game.grid.tile.width, 'assets/wall' + Game.grid.tile.width + '.png', {
                 spr_wall:    [0, 0]
@@ -184,6 +216,8 @@
 
             Crafty.scene('StartMenu');
 
+        }, function(e) {
+            console.log(e.loaded);
         })
     });
 

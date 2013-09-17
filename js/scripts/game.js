@@ -109,7 +109,6 @@
                     smk2.z = 10;
                     smk3.z = 10;
                 }
-
             },
 
             homework: {
