@@ -47,6 +47,8 @@
         },
 
         initialize: function() {
+            this.canStart = false;
+
             App.on('sceneChange:StartMenu', _.bind(this.removeUI, this));
             this.render();
         },
@@ -58,11 +60,16 @@
         },
 
         animateTitle: function() {
-            $('.start-title').delay(500).animate({top: "-60px", width: '450px'},{duration: 1000, specialEasing: { top: "easeOutBounce", width: "easeOutBounce" }});
+            $('.start-title').delay(500).animate({top: "-60px", width: '450px'},{duration: 1000, specialEasing: { top: "easeOutBounce", width: "easeOutBounce" }, complete: _.bind(function() {
+                console.log(this);
+                this.canStart = true;
+            }, this)});
         },
 
         startGame: function() {
-            Crafty.scene('GameLoop');
+            if (this.canStart) {
+                Crafty.scene('GameLoop');
+            }
         },
 
         howTo: function(){
@@ -132,7 +139,7 @@
         },
 
         render: function () {
-            this.$el.html(this.template({rounds: Game.victories, text: 'You should be faster at this. Try better next time.', time: Math.floor(Game.timeElapsed*10)/10}));
+            this.$el.html(this.template({rounds: Game.victories, text: 'You should be faster at this. Suck less next time.', time: Math.floor(Game.timeElapsed*10)/10}));
             return this;
         },
 

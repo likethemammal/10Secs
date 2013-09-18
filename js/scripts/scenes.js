@@ -36,7 +36,7 @@
 
         new App.GameUI();
 
-//        App.timer.start();
+        App.timer.start();
 
         this.bind('WinRound', _.bind(function(disaster) {
             Game.disasters[disaster].completed = true;
@@ -174,6 +174,7 @@
             "assets/extras/bong.png",
             "assets/extras/smoke.png",
             "assets/extras/smoke2.png",
+            "assets/extras/wick.png",
             "assets/extras/rock.png",
             "assets/extras/rock2.png",
             "assets/extras/appliances.png",
