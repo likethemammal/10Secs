@@ -49,11 +49,12 @@
 
             Crafty.init(this.width(), this.height());
 
-            Crafty.bind('SceneChange', function(changeInfo) {
+            Crafty.bind('SceneChange', _.bind(function(changeInfo) {
                 if (changeInfo.oldScene !== changeInfo.newScene) {
+                    this.scene = changeInfo.newScene;
                     App.trigger('sceneChange:' + changeInfo.oldScene);
                 }
-            });
+            }, this));
 
             Crafty.background('#555');
 

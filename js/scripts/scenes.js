@@ -61,7 +61,9 @@
 
     Crafty.scene('VictoryMenu', function() {
         var delay = true;
-        new App.VictoryMenu();
+        Game.started = false;
+
+        App.menu = new App.VictoryMenu();
 
         setTimeout(function() { delay = false; }, 500);
 
@@ -81,8 +83,9 @@
 
     Crafty.scene('GameOverMenu', function() {
         var delay = true;
+        Game.started = false;
 
-        new App.GameOverMenu();
+        App.menu = new App.GameOverMenu();
 
         setTimeout(function() { delay = false; }, 500);
 
@@ -102,13 +105,19 @@
 
     Crafty.scene('StartMenu', function(){
 
-        new App.StartMenu();
+        App.menu = new App.StartMenu();
+
+    });
+
+    Crafty.scene('HowToMenu', function(){
+
+        App.menu = new App.HowToMenu();
 
     });
 
     Crafty.scene('RoundMenu', function(){
         var delay = true;
-        new App.RoundMenu();
+        App.menu = new App.RoundMenu();
 
         setTimeout(function() { delay = false; }, 500);
 

@@ -9,7 +9,7 @@
 
     App.timer = new Timer(100);
 
-    App.templates = ['start', 'victory', 'round', 'game-over', 'game-ui', 'message'];
+    App.templates = ['start', 'how-to', 'victory', 'round', 'game-over', 'game-ui', 'message'];
 
     App.loadTemplates = function() {
         var templates = App.templates;
@@ -55,30 +55,84 @@
 
         render: function () {
             this.$el.html(this.template);
-            this.animateTitle();
+            this.animateMenu();
             return this;
         },
 
-        animateTitle: function() {
-            $('.start-title').delay(500).animate({top: "-60px", width: '450px'},{duration: 1000, specialEasing: { top: "easeOutBounce", width: "easeOutBounce" }, complete: _.bind(function() {
-                console.log(this);
+        animateMenu: function() {
+            $('.website-btn').delay(300).animate({bottom: "10px"},{duration: 1000, specialEasing: {bottom: "easeOutBounce" }});
+            $('.start-btn').delay(300).animate({right: "0"},{duration: 1000, specialEasing: {right: "easeOutBounce" }});
+            $('.how-to-btn').delay(300).animate({left: "0"},{duration: 1000, specialEasing: {left: "easeOutBounce" }});
+            $('.start-title').delay(300).animate({top: "-60px", width: '450px'},{duration: 1000, specialEasing: { top: "easeOutBounce", width: "easeOutBounce" }, complete: _.bind(function() {
                 this.canStart = true;
             }, this)});
         },
 
         startGame: function() {
-            if (this.canStart) {
+            if (this.canStart && !Game.started) {
+                this.$el.children().remove();
+                this.canStart = false;
+                Game.started = true;
                 Crafty.scene('GameLoop');
             }
         },
 
         howTo: function(){
-            console.log('How to menu launched');
+            Crafty.scene('HowToMenu');
         },
 
         removeUI: function() {
             App.off('sceneChange:StartMenu', _.bind(this.removeUI, this));
-            this.$el.children().remove();
+
+            if (Game.scene !== 'HowToMenu') {
+                this.$el.children().remove();
+            }
+        }
+    });
+
+    App.HowToMenu = Backbone.View.extend({
+
+        el: '.menu-container',
+
+        template: _.template($("#how-to-template").html()),
+
+        events: {
+            'click .back-ui-btn': 'back'
+        },
+
+        initialize: function() {
+            this.canBack = false;
+            App.on('sceneChange:HowToMenu', _.bind(this.removeUI, this));
+            this.render();
+        },
+
+        render: function () {
+            this.$el.html(this.template);
+            this.animateMenu();
+            return this;
+        },
+
+        animateMenu: function() {
+            $('.back-ui-btn').animate({bottom: "10px"},{duration: 1000, specialEasing: {bottom: "easeOutBounce" }});
+            $('.how-to-ui-container-right').animate({right: "0"},{duration: 1000, specialEasing: {right: "easeOutBounce" }});
+            $('.how-to-ui-container-left').animate({left: "0"},{duration: 1000, specialEasing: {left: "easeOutBounce" }, complete: _.bind(function() {
+                this.canBack = true;
+            }, this)});
+        },
+
+        back: function() {
+            if (this.canBack) {
+                this.$el.children().remove();
+                Crafty.scene('StartMenu');
+                this.canBack = false;
+            }
+        },
+
+        removeUI: function() {
+            App.off('sceneChange:HowToMenu', _.bind(this.removeUI, this));
+            if (Game.scene !== 'StartMenu') {
+                this.$el.children().remove();
+            }
         }
     });
 
