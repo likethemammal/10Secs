@@ -39,6 +39,17 @@
 
         start: function() {
 
+            $(window).bind({
+                keypress: function(e) {
+                    if ([32,37,38,39,40].indexOf(e.which) > -1)
+                        e.preventDefault();
+                },
+                keydown: function(e) {
+                    if ([32,37,38,39,40].indexOf(e.which) > -1)
+                        e.preventDefault();
+                }
+            });
+
             this.origDisasters = $.extend(true, {}, this.disasters);
 
             this.map.width = this.width()*this.map.multiplier;
